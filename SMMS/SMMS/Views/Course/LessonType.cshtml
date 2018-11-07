@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SMMS.Models.LessonType>
+
+@{
+    ViewBag.Title = "LessonType";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="panel" style="margin-top:50px;">
+<header class="panel-heading">
+    <div class="panel-actions">
+        <button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary fade" href="#modalLG" id="btnOpen"></button>
+        <button class="btn btn-sm btn-primary btnAdd" data-url='@Url.Action("LessonTypeAction", "Course", new { id = 0 })'>New Lesson Type</button>
+    </div>
+
+    <h2 class="panel-title">List of lesson types</h2>
+</header>
+</section>
+<div class="panel-body">
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="~/Content/assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.LessonName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LessonName)
+                    </td>
+                    <td>
+                        <button type="button" class="mb-xs mt-xs mr-xs btn btn-xs btn-info btnAdd"  data-url='@Url.Action("LessonTypeAction", "Course", new { id = item.LessonTypeID })'><i class="fa fa-pencil"></i> </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+
+@Html.Raw(TempData["msg"])

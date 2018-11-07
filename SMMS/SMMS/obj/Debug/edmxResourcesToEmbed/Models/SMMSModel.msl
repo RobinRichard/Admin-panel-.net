@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IN705_201802_arulr1ModelStoreContainer" CdmEntityContainer="IN705_201802_arulr1Entities1">
+    <EntitySetMapping Name="Ensembles">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Ensemble">
+        <MappingFragment StoreEntitySet="Ensemble">
+          <ScalarProperty Name="EnsembleID" ColumnName="EnsembleID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="EnsembleGroupID" ColumnName="EnsembleGroupID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EnsembleGroups">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.EnsembleGroup">
+        <MappingFragment StoreEntitySet="EnsembleGroups">
+          <ScalarProperty Name="EnsembleGroupID" ColumnName="EnsembleGroupID" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FeeStructires">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.FeeStructire">
+        <MappingFragment StoreEntitySet="FeeStructire">
+          <ScalarProperty Name="FeeID" ColumnName="FeeID" />
+          <ScalarProperty Name="StudentFee" ColumnName="StudentFee" />
+          <ScalarProperty Name="OpenFee" ColumnName="OpenFee" />
+          <ScalarProperty Name="HireFee" ColumnName="HireFee" />
+          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Instruments">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Instrument">
+        <MappingFragment StoreEntitySet="Instrument">
+          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InstrumentAsserts">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.InstrumentAssert">
+        <MappingFragment StoreEntitySet="InstrumentAssert">
+          <ScalarProperty Name="InstrumentAssertID" ColumnName="InstrumentAssertID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="InstrumentConditionID" ColumnName="InstrumentConditionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InstrumentConditions">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.InstrumentCondition">
+        <MappingFragment StoreEntitySet="InstrumentCondition">
+          <ScalarProperty Name="InstrumentConditionID" ColumnName="InstrumentConditionID" />
+          <ScalarProperty Name="condition" ColumnName="condition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Musics">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Music">
+        <MappingFragment StoreEntitySet="Music">
+          <ScalarProperty Name="MusicID" ColumnName="MusicID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PaymentStatus">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.PaymentStatu">
+        <MappingFragment StoreEntitySet="PaymentStatus">
+          <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Performances">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Performance">
+        <MappingFragment StoreEntitySet="Performance">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PerformanceID" ColumnName="PerformanceID" />
+          <ScalarProperty Name="PerformanceDate" ColumnName="PerformanceDate" />
+          <ScalarProperty Name="Loaction" ColumnName="Loaction" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Student">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="ParentName" ColumnName="ParentName" />
+          <ScalarProperty Name="ParentPhone" ColumnName="ParentPhone" />
+          <ScalarProperty Name="ParentEmail" ColumnName="ParentEmail" />
+          <ScalarProperty Name="ParentAddrsss" ColumnName="ParentAddrsss" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Technicians">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Technician">
+        <MappingFragment StoreEntitySet="Technician">
+          <ScalarProperty Name="TechnicianID" ColumnName="TechnicianID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tutors">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Tutor">
+        <MappingFragment StoreEntitySet="Tutor">
+          <ScalarProperty Name="TutorID" ColumnName="TutorID" />
+          <ScalarProperty Name="TutorLevelID" ColumnName="TutorLevelID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TutorLevels">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.TutorLevel">
+        <MappingFragment StoreEntitySet="TutorLevel">
+          <ScalarProperty Name="TutorLevelID" ColumnName="TutorLevelID" />
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserRoles">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.UserRole">
+        <MappingFragment StoreEntitySet="UserRole">
+          <ScalarProperty Name="UserRoleID" ColumnName="UserRoleID" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CourseLevels">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.CourseLevel">
+        <MappingFragment StoreEntitySet="CourseLevel">
+          <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+          <ScalarProperty Name="CourseLevelID" ColumnName="CourseLevelID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Enrolments">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Enrolment">
+        <MappingFragment StoreEntitySet="Enrolment">
+          <ScalarProperty Name="LessonBatchID" ColumnName="LessonBatchID" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="EnrolmentID" ColumnName="EnrolmentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InstrumentHires">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.InstrumentHire">
+        <MappingFragment StoreEntitySet="InstrumentHire">
+          <ScalarProperty Name="EnrolmentID" ColumnName="EnrolmentID" />
+          <ScalarProperty Name="InstrumentAssertID" ColumnName="InstrumentAssertID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="InstrumentHireId" ColumnName="InstrumentHireId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InstumentServices">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.InstumentService">
+        <MappingFragment StoreEntitySet="InstumentService">
+          <ScalarProperty Name="TechnicianID" ColumnName="TechnicianID" />
+          <ScalarProperty Name="InstrumentHireId" ColumnName="InstrumentHireId" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Problem" ColumnName="Problem" />
+          <ScalarProperty Name="InstumentServiceID" ColumnName="InstumentServiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lessons">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Lesson">
+        <MappingFragment StoreEntitySet="Lesson">
+          <ScalarProperty Name="LessonTypeID" ColumnName="LessonTypeID" />
+          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="CourseLevelID" ColumnName="CourseLevelID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LessonID" ColumnName="LessonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Lessonbatches">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Lessonbatch">
+        <MappingFragment StoreEntitySet="Lessonbatch">
+          <ScalarProperty Name="TutorID" ColumnName="TutorID" />
+          <ScalarProperty Name="LessonID" ColumnName="LessonID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="Duration" ColumnName="Duration" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LessonBatchID" ColumnName="LessonBatchID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LessonTypes">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.LessonType">
+        <MappingFragment StoreEntitySet="LessonType">
+          <ScalarProperty Name="LessonName" ColumnName="LessonName" />
+          <ScalarProperty Name="LessonTypeID" ColumnName="LessonTypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MusicSheets">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.MusicSheet">
+        <MappingFragment StoreEntitySet="MusicSheet">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CourseLevelID" ColumnName="CourseLevelID" />
+          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="MusicID" ColumnName="MusicID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="MusicSheetID" ColumnName="MusicSheetID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Payment">
+        <MappingFragment StoreEntitySet="Payment">
+          <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+          <ScalarProperty Name="EnrolmentID" ColumnName="EnrolmentID" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="PaidAMount" ColumnName="PaidAMount" />
+          <ScalarProperty Name="PayableAmount" ColumnName="PayableAmount" />
+          <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PerformanceLists">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.PerformanceList">
+        <MappingFragment StoreEntitySet="PerformanceList">
+          <ScalarProperty Name="PerformanceID" ColumnName="PerformanceID" />
+          <ScalarProperty Name="MusicSheetID" ColumnName="MusicSheetID" />
+          <ScalarProperty Name="PerformanceTime" ColumnName="PerformanceTime" />
+          <ScalarProperty Name="PerformanceListID" ColumnName="PerformanceListID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

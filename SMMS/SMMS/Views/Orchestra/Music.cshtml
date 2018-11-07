@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SMMS.Models.Music>
+
+@{
+    ViewBag.Title = "Music";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="panel" style="margin-top:50px;">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary fade" href="#modalLG" id="btnOpen"></button>
+            <button class="btn btn-sm btn-primary btnAdd" data-url='@Url.Action("MusicAction", "Orchestra", new { id = 0 })'>New Music</button>
+        </div>
+
+        <h2 class="panel-title">List of musics</h2>
+    </header>
+</section>
+<div class="panel-body">
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="~/Content/assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        <button type="button" class="mb-xs mt-xs mr-xs btn btn-xs btn-info btnAdd" data-url='@Url.Action("MusicAction", "Orchestra", new { id = item.MusicID })'><i class="fa fa-pencil"></i> </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+@Html.Raw(TempData["msg"])
+
+
+
+
+

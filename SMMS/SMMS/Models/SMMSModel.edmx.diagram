@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bff20ad9785244d0b7b29fc0354ff76c" Name="Diagram1" ZoomLevel="55">
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Ensemble" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.EnsembleGroup" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.FeeStructire" Width="1.5" PointX="11" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Instrument" Width="1.5" PointX="8.75" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.InstrumentAssert" Width="1.5" PointX="11" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.InstrumentCondition" Width="1.5" PointX="8.75" PointY="15.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Music" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.PaymentStatu" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Performance" Width="1.5" PointX="2.75" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Student" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Technician" Width="1.5" PointX="5.25" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Tutor" Width="1.5" PointX="8.25" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.TutorLevel" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.User" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.UserRole" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_79" ManuallyRouted="false" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_82" ManuallyRouted="false" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_101" ManuallyRouted="false" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_108" ManuallyRouted="false" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_111" ManuallyRouted="false" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_258" ManuallyRouted="false" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_261" ManuallyRouted="false" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_255" ManuallyRouted="false" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_92" ManuallyRouted="false" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_252" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.CourseLevel" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Enrolment" Width="1.5" PointX="18.5" PointY="8.375" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.InstrumentHire" Width="1.5" PointX="13.25" PointY="9.75" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.InstumentService" Width="1.5" PointX="15.5" PointY="8.375" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Lesson" Width="1.5" PointX="14" PointY="13.625" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Lessonbatch" Width="1.5" PointX="16.25" PointY="12.375" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.LessonType" Width="1.5" PointX="11.75" PointY="16.25" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.MusicSheet" Width="1.5" PointX="11" PointY="5.125" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.Payment" Width="1.5" PointX="20.75" PointY="8.375" />
+        <EntityTypeShape EntityType="IN705_201802_arulr1Model.PerformanceList" Width="1.5" PointX="13.25" PointY="6.375" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_210" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_70" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_121" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_146" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_155" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_180" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_207" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_73" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_177" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_189" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_192" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_114" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_132" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_143" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_204" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_223" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_162" />
+        <AssociationConnector Association="IN705_201802_arulr1Model.FK_226" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

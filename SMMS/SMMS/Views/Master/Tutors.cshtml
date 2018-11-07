@@ -1,0 +1,83 @@
+﻿@model IEnumerable<SMMS.Models.Tutor>
+
+@{
+    ViewBag.Title = "Tutors";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tutors</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<!-- start: page -->
+@*<header style="margin-top:50px;background:#FFF" class="page-header">
+    <h2 class="text-dark">Students</h2>*@
+<div class="page-header">
+    <div class="right-wrapper">
+        <ol class="breadcrumbs">
+            <li>
+                <a href="@Url.Action("Index", "Home" )">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li><span>Admin</span></li>
+            <li><span>Students</span></li>
+        </ol>
+    </div>
+</div>
+@*</header>*@
+<section class="panel" style="margin-top:50px;">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            @Html.ActionLink("Create New", "TutorsAction", new {@class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary"})
+            @*<button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary" href="#modalLG">New Student</button>*@
+        </div>
+
+        <h2 class="panel-title">List of Tutors</h2>
+    </header>
+    <div class="panel-body">
+        <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="~/Content/assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TutorLevel.LevelName)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TutorLevel.LevelName)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.TutorID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.TutorID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.TutorID })
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</section>
+<!-- end: page -->
+
+
+
