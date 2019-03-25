@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class LessonType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,6 +22,9 @@ namespace SMMS.Models
         }
     
         public int LessonTypeID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a lesson name.")]
+        [Display(Name = "Lesson Name")]
         public string LessonName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

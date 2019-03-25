@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Instrument
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -20,19 +21,33 @@ namespace SMMS.Models
             this.FeeStructires = new HashSet<FeeStructire>();
             this.InstrumentAsserts = new HashSet<InstrumentAssert>();
             this.MusicSheets = new HashSet<MusicSheet>();
+            this.InstumentLevels = new HashSet<InstumentLevel>();
             this.Lessons = new HashSet<Lesson>();
         }
     
+        [Required]
         public int InstrumentID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide an instrument.")]
+        [Display(Name = "Instrument")]
         public string Name { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a description.")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FeeStructire> FeeStructires { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InstrumentAssert> InstrumentAsserts { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MusicSheet> MusicSheets { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InstumentLevel> InstumentLevels { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
     }

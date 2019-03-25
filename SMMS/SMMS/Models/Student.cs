@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Student
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,15 +23,26 @@ namespace SMMS.Models
         }
     
         public int StudentID { get; set; }
-        public string ParentName { get; set; }
-        public Nullable<int> ParentPhone { get; set; }
-        public string ParentEmail { get; set; }
-        public string ParentAddrsss { get; set; }
+
         public int UserID { get; set; }
-    
+
+        [Display(Name = "Parent Name")]
+        public string ParentName { get; set; }
+
+        [Display(Name = "Parent Phone Number")]
+        public Nullable<int> ParentPhone { get; set; }
+
+        [Display(Name = "Parent Email Address")]
+        public string ParentEmail { get; set; }
+
+        [Display(Name = "Parent Street Address")]
+        public string ParentAddrsss { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ensemble> Ensembles { get; set; }
+
         public virtual User User { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Enrolment> Enrolments { get; set; }
     }

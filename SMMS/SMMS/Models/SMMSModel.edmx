@@ -59,9 +59,9 @@
             <PropertyRef Name="InstrumentAssertID" />
           </Key>
           <Property Name="InstrumentAssertID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="100" />
           <Property Name="InstrumentID" Type="int" Nullable="false" />
           <Property Name="InstrumentConditionID" Type="int" Nullable="false" />
+          <Property Name="InstrumentCode" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="InstrumentCondition">
           <Key>
@@ -78,6 +78,15 @@
           <Property Name="Description" Type="varchar" MaxLength="100" />
           <Property Name="InstrumentAssertID" Type="int" Nullable="false" />
           <Property Name="EnrolmentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InstumentLevel">
+          <Key>
+            <PropertyRef Name="InstumentLevelID" />
+          </Key>
+          <Property Name="InstumentLevelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InstrumentID" Type="int" Nullable="false" />
+          <Property Name="CourseLevelID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="InstumentService">
           <Key>
@@ -98,8 +107,8 @@
           <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="CourseLevelID" Type="int" Nullable="false" />
-          <Property Name="InstrumentID" Type="int" />
           <Property Name="LessonTypeID" Type="int" Nullable="false" />
+          <Property Name="InstrumentID" Type="int" />
         </EntityType>
         <EntityType Name="Lessonbatch">
           <Key>
@@ -113,6 +122,7 @@
           <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="LessonID" Type="int" Nullable="false" />
           <Property Name="TutorID" Type="int" Nullable="false" />
+          <Property Name="BatchDate" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="LessonType">
           <Key>
@@ -141,6 +151,16 @@
           <Property Name="InstrumentID" Type="int" Nullable="false" />
           <Property Name="CourseLevelID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="PayList">
+          <Key>
+            <PropertyRef Name="PayListID" />
+          </Key>
+          <Property Name="PayListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Deduction" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="NetPay" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="PaymentDate" Type="date" Nullable="false" />
+          <Property Name="PayrollID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Payment">
           <Key>
             <PropertyRef Name="PaymentID" />
@@ -158,6 +178,17 @@
           </Key>
           <Property Name="PaymentStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StatusName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payroll">
+          <Key>
+            <PropertyRef Name="PayrollID" />
+          </Key>
+          <Property Name="PayrollID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PayDate" Type="datetime" Nullable="false" />
+          <Property Name="GrossPay" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="PaymentStatus" Type="int" Nullable="false" />
+          <Property Name="PreparationDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Performance">
           <Key>
@@ -201,8 +232,8 @@
             <PropertyRef Name="TutorID" />
           </Key>
           <Property Name="TutorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="TutorLevelID" Type="int" Nullable="false" />
           <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="TutorLevelID" Type="int" />
         </EntityType>
         <EntityType Name="TutorLevel">
           <Key>
@@ -223,6 +254,7 @@
           <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="UserRoleID" Type="int" Nullable="false" />
+          <Property Name="DOB" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -231,6 +263,18 @@
           <Property Name="UserRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Tutor__TutorLeve__22FF2F51">
+          <End Role="TutorLevel" Type="Self.TutorLevel" Multiplicity="0..1" />
+          <End Role="Tutor" Type="Self.Tutor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TutorLevel">
+              <PropertyRef Name="TutorLevelID" />
+            </Principal>
+            <Dependent Role="Tutor">
+              <PropertyRef Name="TutorLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_101">
           <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
           <End Role="FeeStructire" Type="Self.FeeStructire" Multiplicity="*" />
@@ -507,6 +551,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_270">
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="InstumentLevel" Type="Self.InstumentLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrument">
+              <PropertyRef Name="InstrumentID" />
+            </Principal>
+            <Dependent Role="InstumentLevel">
+              <PropertyRef Name="InstrumentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_279">
+          <End Role="CourseLevel" Type="Self.CourseLevel" Multiplicity="1" />
+          <End Role="InstumentLevel" Type="Self.InstumentLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseLevel">
+              <PropertyRef Name="CourseLevelID" />
+            </Principal>
+            <Dependent Role="InstumentLevel">
+              <PropertyRef Name="CourseLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_282">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="InstumentLevel" Type="Self.InstumentLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="InstumentLevel">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_289">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_297">
+          <End Role="PaymentStatus" Type="Self.PaymentStatus" Multiplicity="1" />
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatus">
+              <PropertyRef Name="PaymentStatus" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="PaymentStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_306">
+          <End Role="Payroll" Type="Self.Payroll" Multiplicity="1" />
+          <End Role="PayList" Type="Self.PayList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payroll">
+              <PropertyRef Name="PayrollID" />
+            </Principal>
+            <Dependent Role="PayList">
+              <PropertyRef Name="PayrollID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_70">
           <End Role="CourseLevel" Type="Self.CourseLevel" Multiplicity="1" />
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
@@ -555,18 +671,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_92">
-          <End Role="TutorLevel" Type="Self.TutorLevel" Multiplicity="1" />
-          <End Role="Tutor" Type="Self.Tutor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TutorLevel">
-              <PropertyRef Name="TutorLevelID" />
-            </Principal>
-            <Dependent Role="Tutor">
-              <PropertyRef Name="TutorLevelID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <Function Name="PayrollAutomation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="IN705_201802_arulr1ModelStoreContainer">
           <EntitySet Name="CourseLevel" EntityType="Self.CourseLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Enrolment" EntityType="Self.Enrolment" Schema="dbo" store:Type="Tables" />
@@ -577,14 +682,17 @@
           <EntitySet Name="InstrumentAssert" EntityType="Self.InstrumentAssert" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InstrumentCondition" EntityType="Self.InstrumentCondition" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InstrumentHire" EntityType="Self.InstrumentHire" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InstumentLevel" EntityType="Self.InstumentLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InstumentService" EntityType="Self.InstumentService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lessonbatch" EntityType="Self.Lessonbatch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LessonType" EntityType="Self.LessonType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music" EntityType="Self.Music" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MusicSheet" EntityType="Self.MusicSheet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PayList" EntityType="Self.PayList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentStatus" EntityType="Self.PaymentStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payroll" EntityType="Self.Payroll" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Performance" EntityType="Self.Performance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PerformanceList" EntityType="Self.PerformanceList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
@@ -593,6 +701,10 @@
           <EntitySet Name="TutorLevel" EntityType="Self.TutorLevel" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Tutor__TutorLeve__22FF2F51" Association="Self.FK__Tutor__TutorLeve__22FF2F51">
+            <End Role="TutorLevel" EntitySet="TutorLevel" />
+            <End Role="Tutor" EntitySet="Tutor" />
+          </AssociationSet>
           <AssociationSet Name="FK_101" Association="Self.FK_101">
             <End Role="Instrument" EntitySet="Instrument" />
             <End Role="FeeStructire" EntitySet="FeeStructire" />
@@ -685,6 +797,30 @@
             <End Role="User" EntitySet="User" />
             <End Role="Technician" EntitySet="Technician" />
           </AssociationSet>
+          <AssociationSet Name="FK_270" Association="Self.FK_270">
+            <End Role="Instrument" EntitySet="Instrument" />
+            <End Role="InstumentLevel" EntitySet="InstumentLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_279" Association="Self.FK_279">
+            <End Role="CourseLevel" EntitySet="CourseLevel" />
+            <End Role="InstumentLevel" EntitySet="InstumentLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_282" Association="Self.FK_282">
+            <End Role="User" EntitySet="User" />
+            <End Role="InstumentLevel" EntitySet="InstumentLevel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_289" Association="Self.FK_289">
+            <End Role="User" EntitySet="User" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_297" Association="Self.FK_297">
+            <End Role="PaymentStatus" EntitySet="PaymentStatus" />
+            <End Role="Payroll" EntitySet="Payroll" />
+          </AssociationSet>
+          <AssociationSet Name="FK_306" Association="Self.FK_306">
+            <End Role="Payroll" EntitySet="Payroll" />
+            <End Role="PayList" EntitySet="PayList" />
+          </AssociationSet>
           <AssociationSet Name="FK_70" Association="Self.FK_70">
             <End Role="CourseLevel" EntitySet="CourseLevel" />
             <End Role="Lesson" EntitySet="Lesson" />
@@ -700,10 +836,6 @@
           <AssociationSet Name="FK_82" Association="Self.FK_82">
             <End Role="EnsembleGroups" EntitySet="EnsembleGroups" />
             <End Role="Ensemble" EntitySet="Ensemble" />
-          </AssociationSet>
-          <AssociationSet Name="FK_92" Association="Self.FK_92">
-            <End Role="TutorLevel" EntitySet="TutorLevel" />
-            <End Role="Tutor" EntitySet="Tutor" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -749,6 +881,7 @@
           <NavigationProperty Name="FeeStructires" Relationship="Self.FK_101" FromRole="Instrument" ToRole="FeeStructire" />
           <NavigationProperty Name="InstrumentAsserts" Relationship="Self.FK_108" FromRole="Instrument" ToRole="InstrumentAssert" />
           <NavigationProperty Name="MusicSheets" Relationship="IN705_201802_arulr1Model.FK_207" FromRole="Instrument" ToRole="MusicSheet" />
+          <NavigationProperty Name="InstumentLevels" Relationship="IN705_201802_arulr1Model.FK_270" FromRole="Instrument" ToRole="InstumentLevel" />
           <NavigationProperty Name="Lessons" Relationship="IN705_201802_arulr1Model.FK_73" FromRole="Instrument" ToRole="Lesson" />
         </EntityType>
         <EntityType Name="InstrumentAssert">
@@ -756,12 +889,12 @@
             <PropertyRef Name="InstrumentAssertID" />
           </Key>
           <Property Name="InstrumentAssertID" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="InstrumentID" Type="Int32" Nullable="false" />
           <Property Name="InstrumentConditionID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Instrument" Relationship="Self.FK_108" FromRole="InstrumentAssert" ToRole="Instrument" />
           <NavigationProperty Name="InstrumentCondition" Relationship="Self.FK_111" FromRole="InstrumentAssert" ToRole="InstrumentCondition" />
           <NavigationProperty Name="InstrumentHires" Relationship="IN705_201802_arulr1Model.FK_177" FromRole="InstrumentAssert" ToRole="InstrumentHire" />
+          <Property Name="InstrumentCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="InstrumentCondition">
           <Key>
@@ -787,6 +920,7 @@
           <Property Name="PaymentStatus" Type="Int32" Nullable="false" />
           <Property Name="StatusName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Payments" Relationship="IN705_201802_arulr1Model.FK_162" FromRole="PaymentStatu" ToRole="Payment" />
+          <NavigationProperty Name="Payrolls" Relationship="IN705_201802_arulr1Model.FK_297" FromRole="PaymentStatu" ToRole="Payroll" />
         </EntityType>
         <EntityType Name="Performance">
           <Key>
@@ -827,11 +961,11 @@
             <PropertyRef Name="TutorID" />
           </Key>
           <Property Name="TutorID" Type="Int32" Nullable="false" />
-          <Property Name="TutorLevelID" Type="Int32" Nullable="false" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="User" Relationship="Self.FK_255" FromRole="Tutor" ToRole="User" />
-          <NavigationProperty Name="TutorLevel" Relationship="Self.FK_92" FromRole="Tutor" ToRole="TutorLevel" />
           <NavigationProperty Name="Lessonbatches" Relationship="IN705_201802_arulr1Model.FK_143" FromRole="Tutor" ToRole="Lessonbatch" />
+          <Property Name="TutorLevelID" Type="Int32" />
+          <NavigationProperty Name="TutorLevel" Relationship="IN705_201802_arulr1Model.FK__Tutor__TutorLeve__22FF2F51" FromRole="Tutor" ToRole="TutorLevel" />
         </EntityType>
         <EntityType Name="TutorLevel">
           <Key>
@@ -839,7 +973,7 @@
           </Key>
           <Property Name="TutorLevelID" Type="Int32" Nullable="false" />
           <Property Name="LevelName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Tutors" Relationship="Self.FK_92" FromRole="TutorLevel" ToRole="Tutor" />
+          <NavigationProperty Name="Tutors" Relationship="IN705_201802_arulr1Model.FK__Tutor__TutorLeve__22FF2F51" FromRole="TutorLevel" ToRole="Tutor" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -857,6 +991,9 @@
           <NavigationProperty Name="Technicians" Relationship="Self.FK_261" FromRole="User" ToRole="Technician" />
           <NavigationProperty Name="Tutors" Relationship="Self.FK_255" FromRole="User" ToRole="Tutor" />
           <NavigationProperty Name="UserRole" Relationship="Self.FK_252" FromRole="User" ToRole="UserRole" />
+          <Property Name="DOB" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="InstumentLevels" Relationship="IN705_201802_arulr1Model.FK_282" FromRole="User" ToRole="InstumentLevel" />
+          <NavigationProperty Name="Payrolls" Relationship="IN705_201802_arulr1Model.FK_289" FromRole="User" ToRole="Payroll" />
         </EntityType>
         <EntityType Name="UserRole">
           <Key>
@@ -962,18 +1099,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_92">
-          <End Role="TutorLevel" Type="Self.TutorLevel" Multiplicity="1" />
-          <End Role="Tutor" Type="Self.Tutor" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="TutorLevel">
-              <PropertyRef Name="TutorLevelID" />
-            </Principal>
-            <Dependent Role="Tutor">
-              <PropertyRef Name="TutorLevelID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_252">
           <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
           <End Role="User" Type="Self.User" Multiplicity="*" />
@@ -1034,10 +1159,6 @@
             <End Role="User" EntitySet="Users" />
             <End Role="Tutor" EntitySet="Tutors" />
           </AssociationSet>
-          <AssociationSet Name="FK_92" Association="Self.FK_92">
-            <End Role="TutorLevel" EntitySet="TutorLevels" />
-            <End Role="Tutor" EntitySet="Tutors" />
-          </AssociationSet>
           <AssociationSet Name="FK_252" Association="Self.FK_252">
             <End Role="UserRole" EntitySet="UserRoles" />
             <End Role="User" EntitySet="Users" />
@@ -1080,10 +1201,6 @@
             <End Role="Instrument" EntitySet="Instruments" />
             <End Role="MusicSheet" EntitySet="MusicSheets" />
           </AssociationSet>
-          <AssociationSet Name="FK_73" Association="IN705_201802_arulr1Model.FK_73">
-            <End Role="Instrument" EntitySet="Instruments" />
-            <End Role="Lesson" EntitySet="Lessons" />
-          </AssociationSet>
           <AssociationSet Name="FK_177" Association="IN705_201802_arulr1Model.FK_177">
             <End Role="InstrumentAssert" EntitySet="InstrumentAsserts" />
             <End Role="InstrumentHire" EntitySet="InstrumentHires" />
@@ -1124,6 +1241,43 @@
             <End Role="Performance" EntitySet="Performances" />
             <End Role="PerformanceList" EntitySet="PerformanceLists" />
           </AssociationSet>
+          <EntitySet Name="InstumentLevels" EntityType="IN705_201802_arulr1Model.InstumentLevel" />
+          <AssociationSet Name="FK_279" Association="IN705_201802_arulr1Model.FK_279">
+            <End Role="CourseLevel" EntitySet="CourseLevels" />
+            <End Role="InstumentLevel" EntitySet="InstumentLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_270" Association="IN705_201802_arulr1Model.FK_270">
+            <End Role="Instrument" EntitySet="Instruments" />
+            <End Role="InstumentLevel" EntitySet="InstumentLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_282" Association="IN705_201802_arulr1Model.FK_282">
+            <End Role="User" EntitySet="Users" />
+            <End Role="InstumentLevel" EntitySet="InstumentLevels" />
+          </AssociationSet>
+          <AssociationSet Name="FK_73" Association="IN705_201802_arulr1Model.FK_73">
+            <End Role="Instrument" EntitySet="Instruments" />
+            <End Role="Lesson" EntitySet="Lessons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tutor__TutorLeve__22FF2F51" Association="IN705_201802_arulr1Model.FK__Tutor__TutorLeve__22FF2F51">
+            <End Role="TutorLevel" EntitySet="TutorLevels" />
+            <End Role="Tutor" EntitySet="Tutors" />
+          </AssociationSet>
+          <EntitySet Name="Payrolls" EntityType="IN705_201802_arulr1Model.Payroll" />
+          <AssociationSet Name="FK_289" Association="IN705_201802_arulr1Model.FK_289">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Payroll" EntitySet="Payrolls" />
+          </AssociationSet>
+          <AssociationSet Name="FK_297" Association="IN705_201802_arulr1Model.FK_297">
+            <End Role="PaymentStatu" EntitySet="PaymentStatus" />
+            <End Role="Payroll" EntitySet="Payrolls" />
+          </AssociationSet>
+          <EntitySet Name="PayLists" EntityType="IN705_201802_arulr1Model.PayList" />
+          <AssociationSet Name="FK_306" Association="IN705_201802_arulr1Model.FK_306">
+            <End Role="Payroll" EntitySet="Payrolls" />
+            <End Role="PayList" EntitySet="PayLists" />
+          </AssociationSet>
+          <FunctionImport Name="PayrollAutomation" />
+          <FunctionImport Name="PayrollAutomation1" />
         </EntityContainer>
         <EntityType Name="CourseLevel">
           <Key>
@@ -1133,6 +1287,7 @@
           <Property Name="LevelName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="MusicSheets" Relationship="IN705_201802_arulr1Model.FK_210" FromRole="CourseLevel" ToRole="MusicSheet" />
           <NavigationProperty Name="Lessons" Relationship="IN705_201802_arulr1Model.FK_70" FromRole="CourseLevel" ToRole="Lesson" />
+          <NavigationProperty Name="InstumentLevels" Relationship="IN705_201802_arulr1Model.FK_279" FromRole="CourseLevel" ToRole="InstumentLevel" />
         </EntityType>
         <EntityType Name="Enrolment">
           <Key>
@@ -1180,12 +1335,12 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Description" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="CourseLevelID" Type="Int32" Nullable="false" />
-          <Property Name="InstrumentID" Type="Int32" />
           <Property Name="LessonTypeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CourseLevel" Relationship="IN705_201802_arulr1Model.FK_70" FromRole="Lesson" ToRole="CourseLevel" />
-          <NavigationProperty Name="Instrument" Relationship="IN705_201802_arulr1Model.FK_73" FromRole="Lesson" ToRole="Instrument" />
           <NavigationProperty Name="LessonType" Relationship="IN705_201802_arulr1Model.FK_114" FromRole="Lesson" ToRole="LessonType" />
           <NavigationProperty Name="Lessonbatches" Relationship="IN705_201802_arulr1Model.FK_132" FromRole="Lesson" ToRole="Lessonbatch" />
+          <Property Name="InstrumentID" Type="Int32" />
+          <NavigationProperty Name="Instrument" Relationship="IN705_201802_arulr1Model.FK_73" FromRole="Lesson" ToRole="Instrument" />
         </EntityType>
         <EntityType Name="Lessonbatch">
           <Key>
@@ -1202,6 +1357,7 @@
           <NavigationProperty Name="Enrolments" Relationship="IN705_201802_arulr1Model.FK_146" FromRole="Lessonbatch" ToRole="Enrolment" />
           <NavigationProperty Name="Lesson" Relationship="IN705_201802_arulr1Model.FK_132" FromRole="Lessonbatch" ToRole="Lesson" />
           <NavigationProperty Name="Tutor" Relationship="IN705_201802_arulr1Model.FK_143" FromRole="Lessonbatch" ToRole="Tutor" />
+          <Property Name="BatchDate" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
         <EntityType Name="LessonType">
           <Key>
@@ -1335,18 +1491,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_73">
-          <End Type="IN705_201802_arulr1Model.Instrument" Role="Instrument" Multiplicity="0..1" />
-          <End Type="IN705_201802_arulr1Model.Lesson" Role="Lesson" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Instrument">
-              <PropertyRef Name="InstrumentID" />
-            </Principal>
-            <Dependent Role="Lesson">
-              <PropertyRef Name="InstrumentID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_177">
           <End Type="IN705_201802_arulr1Model.InstrumentAssert" Role="InstrumentAssert" Multiplicity="1" />
           <End Type="IN705_201802_arulr1Model.InstrumentHire" Role="InstrumentHire" Multiplicity="*" />
@@ -1467,6 +1611,139 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="InstumentLevel">
+          <Key>
+            <PropertyRef Name="InstumentLevelID" />
+          </Key>
+          <Property Name="InstrumentID" Type="Int32" Nullable="false" />
+          <Property Name="CourseLevelID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CourseLevel" Relationship="IN705_201802_arulr1Model.FK_279" FromRole="InstumentLevel" ToRole="CourseLevel" />
+          <NavigationProperty Name="Instrument" Relationship="IN705_201802_arulr1Model.FK_270" FromRole="InstumentLevel" ToRole="Instrument" />
+          <NavigationProperty Name="User" Relationship="IN705_201802_arulr1Model.FK_282" FromRole="InstumentLevel" ToRole="User" />
+          <Property Name="InstumentLevelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK_279">
+          <End Type="IN705_201802_arulr1Model.CourseLevel" Role="CourseLevel" Multiplicity="1" />
+          <End Type="IN705_201802_arulr1Model.InstumentLevel" Role="InstumentLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseLevel">
+              <PropertyRef Name="CourseLevelID" />
+            </Principal>
+            <Dependent Role="InstumentLevel">
+              <PropertyRef Name="CourseLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_270">
+          <End Type="IN705_201802_arulr1Model.Instrument" Role="Instrument" Multiplicity="1" />
+          <End Type="IN705_201802_arulr1Model.InstumentLevel" Role="InstumentLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrument">
+              <PropertyRef Name="InstrumentID" />
+            </Principal>
+            <Dependent Role="InstumentLevel">
+              <PropertyRef Name="InstrumentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_282">
+          <End Type="IN705_201802_arulr1Model.User" Role="User" Multiplicity="1" />
+          <End Type="IN705_201802_arulr1Model.InstumentLevel" Role="InstumentLevel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="InstumentLevel">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_73">
+          <End Type="IN705_201802_arulr1Model.Instrument" Role="Instrument" Multiplicity="0..1" />
+          <End Type="IN705_201802_arulr1Model.Lesson" Role="Lesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrument">
+              <PropertyRef Name="InstrumentID" />
+            </Principal>
+            <Dependent Role="Lesson">
+              <PropertyRef Name="InstrumentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tutor__TutorLeve__22FF2F51">
+          <End Type="IN705_201802_arulr1Model.TutorLevel" Role="TutorLevel" Multiplicity="0..1" />
+          <End Type="IN705_201802_arulr1Model.Tutor" Role="Tutor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TutorLevel">
+              <PropertyRef Name="TutorLevelID" />
+            </Principal>
+            <Dependent Role="Tutor">
+              <PropertyRef Name="TutorLevelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Payroll">
+          <Key>
+            <PropertyRef Name="PayrollID" />
+          </Key>
+          <Property Name="PayrollID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PayDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="GrossPay" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="IN705_201802_arulr1Model.FK_289" FromRole="Payroll" ToRole="User" />
+          <Property Name="PaymentStatus" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PaymentStatu" Relationship="IN705_201802_arulr1Model.FK_297" FromRole="Payroll" ToRole="PaymentStatu" />
+          <NavigationProperty Name="PayLists" Relationship="IN705_201802_arulr1Model.FK_306" FromRole="Payroll" ToRole="PayList" />
+          <Property Name="PreparationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_289">
+          <End Type="IN705_201802_arulr1Model.User" Role="User" Multiplicity="1" />
+          <End Type="IN705_201802_arulr1Model.Payroll" Role="Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_297">
+          <End Type="IN705_201802_arulr1Model.PaymentStatu" Role="PaymentStatu" Multiplicity="1" />
+          <End Type="IN705_201802_arulr1Model.Payroll" Role="Payroll" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PaymentStatu">
+              <PropertyRef Name="PaymentStatus" />
+            </Principal>
+            <Dependent Role="Payroll">
+              <PropertyRef Name="PaymentStatus" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PayList">
+          <Key>
+            <PropertyRef Name="PayListID" />
+          </Key>
+          <Property Name="PayListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Deduction" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="NetPay" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="PaymentDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PayrollID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Payroll" Relationship="IN705_201802_arulr1Model.FK_306" FromRole="PayList" ToRole="Payroll" />
+        </EntityType>
+        <Association Name="FK_306">
+          <End Type="IN705_201802_arulr1Model.Payroll" Role="Payroll" Multiplicity="1" />
+          <End Type="IN705_201802_arulr1Model.PayList" Role="PayList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payroll">
+              <PropertyRef Name="PayrollID" />
+            </Principal>
+            <Dependent Role="PayList">
+              <PropertyRef Name="PayrollID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1513,8 +1790,8 @@
           <EntitySetMapping Name="InstrumentAsserts">
             <EntityTypeMapping TypeName="IN705_201802_arulr1Model.InstrumentAssert">
               <MappingFragment StoreEntitySet="InstrumentAssert">
+                <ScalarProperty Name="InstrumentCode" ColumnName="InstrumentCode" />
                 <ScalarProperty Name="InstrumentAssertID" ColumnName="InstrumentAssertID" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
                 <ScalarProperty Name="InstrumentConditionID" ColumnName="InstrumentConditionID" />
               </MappingFragment>
@@ -1579,8 +1856,8 @@
           <EntitySetMapping Name="Tutors">
             <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Tutor">
               <MappingFragment StoreEntitySet="Tutor">
-                <ScalarProperty Name="TutorID" ColumnName="TutorID" />
                 <ScalarProperty Name="TutorLevelID" ColumnName="TutorLevelID" />
+                <ScalarProperty Name="TutorID" ColumnName="TutorID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1596,6 +1873,7 @@
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="IN705_201802_arulr1Model.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -1658,8 +1936,8 @@
           <EntitySetMapping Name="Lessons">
             <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
-                <ScalarProperty Name="LessonTypeID" ColumnName="LessonTypeID" />
                 <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+                <ScalarProperty Name="LessonTypeID" ColumnName="LessonTypeID" />
                 <ScalarProperty Name="CourseLevelID" ColumnName="CourseLevelID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1670,6 +1948,7 @@
           <EntitySetMapping Name="Lessonbatches">
             <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Lessonbatch">
               <MappingFragment StoreEntitySet="Lessonbatch">
+                <ScalarProperty Name="BatchDate" ColumnName="BatchDate" />
                 <ScalarProperty Name="TutorID" ColumnName="TutorID" />
                 <ScalarProperty Name="LessonID" ColumnName="LessonID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -1724,6 +2003,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="InstumentLevels">
+            <EntityTypeMapping TypeName="IN705_201802_arulr1Model.InstumentLevel">
+              <MappingFragment StoreEntitySet="InstumentLevel">
+                <ScalarProperty Name="InstumentLevelID" ColumnName="InstumentLevelID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="CourseLevelID" ColumnName="CourseLevelID" />
+                <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payrolls">
+            <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Payroll">
+              <MappingFragment StoreEntitySet="Payroll">
+                <ScalarProperty Name="PreparationDate" ColumnName="PreparationDate" />
+                <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="GrossPay" ColumnName="GrossPay" />
+                <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+                <ScalarProperty Name="PayrollID" ColumnName="PayrollID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PayLists">
+            <EntityTypeMapping TypeName="IN705_201802_arulr1Model.PayList">
+              <MappingFragment StoreEntitySet="PayList">
+                <ScalarProperty Name="PayrollID" ColumnName="PayrollID" />
+                <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+                <ScalarProperty Name="NetPay" ColumnName="NetPay" />
+                <ScalarProperty Name="Deduction" ColumnName="Deduction" />
+                <ScalarProperty Name="PayListID" ColumnName="PayListID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="PayrollAutomation" FunctionName="IN705_201802_arulr1Model.Store.PayrollAutomation" />
+          <FunctionImportMapping FunctionImportName="PayrollAutomation1" FunctionName="IN705_201802_arulr1Model.Store.PayrollAutomation" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1738,8 +2052,8 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

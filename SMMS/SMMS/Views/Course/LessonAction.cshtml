@@ -21,6 +21,14 @@
                 </div>
 
                 <div class="form-group">
+                    @Html.LabelFor(model => model.InstrumentID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("InstrumentID", (IEnumerable<SelectListItem>)ViewBag.drpInstrument, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.InstrumentID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
                     @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
@@ -29,7 +37,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CourseLevelID, "CourseLevelID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.CourseLevelID, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownList("CourseLevelID", (IEnumerable<SelectListItem>)ViewBag.drpCourseLevel, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.CourseLevelID, "", new { @class = "text-danger" })
@@ -37,15 +45,7 @@
                 </div>
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.InstrumentID, "InstrumentID", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.DropDownList("InstrumentID", (IEnumerable<SelectListItem>)ViewBag.drpInstrument, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.InstrumentID, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.LessonTypeID, "LessonTypeID", htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.LessonTypeID, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownList("LessonTypeID", (IEnumerable<SelectListItem>)ViewBag.drpLessonType, htmlAttributes: new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.LessonTypeID, "", new { @class = "text-danger" })
@@ -56,7 +56,7 @@
         <footer class="panel-footer">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" data-action="LessonAction" class="btn btn-primary btSubmit">Save</button>
                     <button class="btn btn-default modal-dismiss">Cancel</button>
                 </div>
             </div>

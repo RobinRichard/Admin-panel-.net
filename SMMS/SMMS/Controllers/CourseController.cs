@@ -1,12 +1,16 @@
-﻿using SMMS.Models;
+﻿using SMMS.App_Start;
+using SMMS.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace SMMS.Controllers
 {
+    [SessionConfig]
     public class CourseController : Controller
     {
         IN705_201802_arulr1Entities1 entities;
@@ -41,26 +45,40 @@ namespace SMMS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult CourseAction(CourseLevel courselevel)
         {
-            string msg = "";
+            ModelState.Remove("CourseLevelID");
 
-            if (courselevel.CourseLevelID > 0)
+            if (ModelState.IsValid)
             {
-                var dataset = entities.CourseLevels.Where(f => f.CourseLevelID == courselevel.CourseLevelID).FirstOrDefault();
-                if (dataset != null)
+                string msg = "";
+
+                if (courselevel.CourseLevelID > 0)
                 {
-                    dataset.LevelName = courselevel.LevelName;
-                    msg = "Course Level Updated Successfully";
+                    var dataset = entities.CourseLevels.Where(f => f.CourseLevelID == courselevel.CourseLevelID).FirstOrDefault();
+                    if (dataset != null)
+                    {
+                        dataset.LevelName = courselevel.LevelName;
+                        msg = "Course Level Updated Successfully";
+                    }
                 }
+                else
+                {
+                    entities.CourseLevels.Add(courselevel);
+                    msg = "New Course Level Added successfully";
+                }
+                entities.SaveChanges();
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        success = true,
+                        action = "CourseLevel",
+                        message = msg
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
-            else
-            {
-                entities.CourseLevels.Add(courselevel);
-                msg = "New Course Level Added successfully";
-            }
-            entities.SaveChanges();
-            TempData["msg"] = "<script>$(document).ready(function () {new PNotify({title: 'Success',text: '"+msg+"',type: 'success'});});</script>";
-            return RedirectToAction("CourseLevel");
 
+            return PartialView(courselevel);
         }
 
 
@@ -89,25 +107,40 @@ namespace SMMS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult LessonTypeAction(LessonType lessontype)
         {
-            string msg = "";
+            ModelState.Remove("LessonTypeID");
 
-            if (lessontype.LessonTypeID > 0)
+            if (ModelState.IsValid)
             {
-                var dataset = entities.LessonTypes.Where(f => f.LessonTypeID == lessontype.LessonTypeID).FirstOrDefault();
-                if (dataset != null)
+                string msg = "";
+
+                if (lessontype.LessonTypeID > 0)
                 {
-                    dataset.LessonName = lessontype.LessonName;
-                    msg = "Lesson Type Updated Successfully";
+                    var dataset = entities.LessonTypes.Where(f => f.LessonTypeID == lessontype.LessonTypeID).FirstOrDefault();
+                    if (dataset != null)
+                    {
+                        dataset.LessonName = lessontype.LessonName;
+                        msg = "Lesson Type Updated Successfully";
+                    }
                 }
+                else
+                {
+                    entities.LessonTypes.Add(lessontype);
+                    msg = "New Lesson Type Added successfully";
+                }
+                entities.SaveChanges();
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        success = true,
+                        action = "LessonType",
+                        message = msg
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
-            else
-            {
-                entities.LessonTypes.Add(lessontype);
-                msg = "New Lesson Type Added successfully";
-            }
-            entities.SaveChanges();
-            TempData["msg"] = "<script>$(document).ready(function () {new PNotify({title: 'Success',text: '" + msg + "',type: 'success'});});</script>";
-            return RedirectToAction("LessonType");
+
+            return PartialView(lessontype);
 
         }
 
@@ -136,26 +169,41 @@ namespace SMMS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult InstumentAction(Instrument instrument)
         {
-            string msg = "";
+            ModelState.Remove("InstrumentID");
 
-            if (instrument.InstrumentID > 0)
+            if (ModelState.IsValid)
             {
-                var dataset = entities.Instruments.Where(f => f.InstrumentID == instrument.InstrumentID).FirstOrDefault();
-                if (dataset != null)
+                string msg = "";
+
+                if (instrument.InstrumentID > 0)
                 {
-                    dataset.Name = instrument.Name;
-                    dataset.Description = instrument.Description;
-                    msg = "Instrument Updated Successfully";
+                    var dataset = entities.Instruments.Where(f => f.InstrumentID == instrument.InstrumentID).FirstOrDefault();
+                    if (dataset != null)
+                    {
+                        dataset.Name = instrument.Name;
+                        dataset.Description = instrument.Description;
+                        msg = "Instrument Updated Successfully";
+                    }
                 }
+                else
+                {
+                    entities.Instruments.Add(instrument);
+                    msg = "New Instument Added successfully";
+                }
+                entities.SaveChanges();
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        success = true,
+                        action = "Instument",
+                        message = msg
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
-            else
-            {
-                entities.Instruments.Add(instrument);
-                msg = "New Instument Added successfully";
-            }
-            entities.SaveChanges();
-            TempData["msg"] = "<script>$(document).ready(function () {new PNotify({title: 'Success',text: '" + msg + "',type: 'success'});});</script>";
-            return RedirectToAction("Instument");
+
+            return PartialView(instrument);
 
         }
 
@@ -188,33 +236,49 @@ namespace SMMS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult LessonAction(Lesson lesson)
         {
-            string msg = "";
+            ModelState.Remove("LessonID");
 
-            if (lesson.LessonID > 0)
+            if (ModelState.IsValid)
             {
-                var dataset = entities.Lessons.Where(f => f.LessonID == lesson.LessonID).FirstOrDefault();
-                if (dataset != null)
+                string msg = "";
+
+                if (lesson.LessonID > 0)
                 {
-                    dataset.Name = lesson.Name;
-                    dataset.Description = lesson.Description;
-                    dataset.CourseLevelID = lesson.CourseLevelID;
-                    dataset.LessonTypeID = lesson.LessonTypeID;
-                    dataset.InstrumentID = lesson.InstrumentID;
-                    msg = "Lesson Updated Successfully";
+                    var dataset = entities.Lessons.Where(f => f.LessonID == lesson.LessonID).FirstOrDefault();
+                    if (dataset != null)
+                    {
+                        dataset.Name = lesson.Name;
+                        dataset.Description = lesson.Description;
+                        dataset.CourseLevelID = lesson.CourseLevelID;
+                        dataset.LessonTypeID = lesson.LessonTypeID;
+                        dataset.InstrumentID = lesson.InstrumentID;
+                        msg = "Lesson Updated Successfully";
+                    }
                 }
+                else
+                {
+                    entities.Lessons.Add(lesson);
+                    msg = "New Lesson Added successfully";
+                }
+                entities.SaveChanges();
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        success = true,
+                        action = "Lesson",
+                        message = msg
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
-            else
-            {
-                entities.Lessons.Add(lesson);
-                msg = "New Lesson Added successfully";
-            }
-            entities.SaveChanges();
-            TempData["msg"] = "<script>$(document).ready(function () {new PNotify({title: 'Success',text: '" + msg + "',type: 'success'});});</script>";
-            return RedirectToAction("Lesson");
-
+            ViewBag.drpCourseLevel = CommonController.drpCourseLevel();
+            ViewBag.drpLessonType = CommonController.drpLessonType();
+            ViewBag.drpInstrument = CommonController.drpInstrument();
+            return PartialView(lesson);
         }
 
-        //Lesson
+        //Lesson Batch
 
         public ActionResult Batch()
         {
@@ -242,31 +306,48 @@ namespace SMMS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult BatchAction(Lessonbatch lesson)
         {
-            string msg = "";
+            ModelState.Remove("LessonBatchID");
 
-            if (lesson.LessonBatchID > 0)
+            if (ModelState.IsValid)
             {
-                var dataset = entities.Lessonbatches.Where(f => f.LessonBatchID == lesson.LessonBatchID).FirstOrDefault();
-                if (dataset != null)
+                string msg = "";
+
+                if (lesson.LessonBatchID > 0)
                 {
-                    dataset.Name = lesson.Name;
-                    dataset.Duration = lesson.Duration;
-                    dataset.StartTime = lesson.StartTime;
-                    dataset.EndTime = lesson.EndTime;
-                    dataset.Description = lesson.Description;
-                    dataset.LessonID = lesson.LessonID;
-                    dataset.TutorID = lesson.TutorID;
-                    msg = "Lesson Batch Updated Successfully";
+                    var dataset = entities.Lessonbatches.Where(f => f.LessonBatchID == lesson.LessonBatchID).FirstOrDefault();
+                    if (dataset != null)
+                    {
+                        dataset.Name = lesson.Name;
+                        dataset.Duration = lesson.Duration;
+                        dataset.StartTime = lesson.StartTime;
+                        dataset.EndTime = lesson.EndTime;
+                        dataset.Description = lesson.Description;
+                        dataset.LessonID = lesson.LessonID;
+                        dataset.TutorID = lesson.TutorID;
+                        dataset.BatchDate = lesson.BatchDate;
+                        msg = "Lesson Batch Updated Successfully";
+                    }
                 }
+                else
+                {
+                    entities.Lessonbatches.Add(lesson);
+                    msg = "New Lesson Batch Added successfully";
+                }
+                entities.SaveChanges();
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        success = true,
+                        action = "Batch",
+                        message = msg
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
-            else
-            {
-                entities.Lessonbatches.Add(lesson);
-                msg = "New Lesson Batch Added successfully";
-            }
-            entities.SaveChanges();
-            TempData["msg"] = "<script>$(document).ready(function () {new PNotify({title: 'Success',text: '" + msg + "',type: 'success'});});</script>";
-            return RedirectToAction("Batch");
+            ViewBag.drpTutor = CommonController.drpTutor();
+            ViewBag.drpLesson = CommonController.drpLesson();
+            return PartialView(lesson);
 
         }
 

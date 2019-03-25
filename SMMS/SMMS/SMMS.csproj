@@ -150,6 +150,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\SessionConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -186,6 +188,9 @@
     <Compile Include="Models\InstrumentHire.cs">
       <DependentUpon>SMMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InstumentLevel.cs">
+      <DependentUpon>SMMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\InstumentService.cs">
       <DependentUpon>SMMSModel.tt</DependentUpon>
     </Compile>
@@ -204,10 +209,16 @@
     <Compile Include="Models\MusicSheet.cs">
       <DependentUpon>SMMSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PayList.cs">
+      <DependentUpon>SMMSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Payment.cs">
       <DependentUpon>SMMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PaymentStatu.cs">
+      <DependentUpon>SMMSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Payroll.cs">
       <DependentUpon>SMMSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Performance.cs">
@@ -2060,9 +2071,7 @@
     <Content Include="Content\assets\vendor\style-switcher\less\shared.less" />
     <Content Include="Content\assets\vendor\style-switcher\less\skin.less" />
     <Content Include="Content\assets\vendor\style-switcher\less\variables.less" />
-    <Content Include="Content\scripts\course.js" />
     <Content Include="Content\scripts\smms.js" />
-    <Content Include="Content\scripts\tutorScript.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -2098,10 +2107,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Master\Student.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2126,7 +2132,6 @@
     </Content>
     <None Include="packages.config" />
     <Content Include="Views\Master\Tutors.cshtml" />
-    <Content Include="Views\Master\TutorsAction.cshtml" />
     <Content Include="Views\Course\LessonType.cshtml" />
     <Content Include="Views\Course\CourseLevel.cshtml" />
     <Content Include="Views\Course\CourseAction.cshtml" />
@@ -2145,6 +2150,32 @@
     <Content Include="Views\Orchestra\ProgramAction.cshtml" />
     <Content Include="Views\Orchestra\Performance.cshtml" />
     <Content Include="Views\Orchestra\PerformanceAction.cshtml" />
+    <Content Include="Views\Master\TutorAction.cshtml" />
+    <Content Include="Views\Master\Student.cshtml" />
+    <Content Include="Views\Master\StudentAction.cshtml" />
+    <Content Include="Views\Master\Technician.cshtml" />
+    <Content Include="Views\Master\TechnicianAction.cshtml" />
+    <Content Include="Views\Admin\Assert.cshtml" />
+    <Content Include="Views\Admin\AssertAction.cshtml" />
+    <Content Include="Views\Admin\Enrolment.cshtml" />
+    <Content Include="Views\Admin\EnrolmentAction.cshtml" />
+    <Content Include="Views\Admin\Hire.cshtml" />
+    <Content Include="Views\Admin\HireAction.cshtml" />
+    <Content Include="Views\Admin\Fee.cshtml" />
+    <Content Include="Views\Admin\FeeAction.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Master\TutorSkill.cshtml" />
+    <Content Include="Views\Master\TutorSkillAction.cshtml" />
+    <Content Include="Views\Admin\Payment.cshtml" />
+    <Content Include="Views\Admin\PaymentAction.cshtml" />
+    <Content Include="Views\Admin\Service.cshtml" />
+    <Content Include="Views\Admin\ServiceAction.cshtml" />
+    <Content Include="Views\Admin\Payroll.cshtml" />
+    <Content Include="Views\Admin\PayrollAction.cshtml" />
+    <Content Include="Views\Master\TutorPaylist.cshtml" />
+    <Content Include="Views\Master\Ensemble.cshtml" />
+    <Content Include="Views\Home\schedule.cshtml" />
+    <Content Include="Views\Home\ServiceList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

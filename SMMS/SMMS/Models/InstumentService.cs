@@ -9,19 +9,37 @@
 
 namespace SMMS.Models
 {
+    using MVCApplication;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class InstumentService
     {
         public int InstumentServiceID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a problems.")]
+        [Display(Name = "Problems")]
         public string Problem { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a date.")]
+        [Display(Name = "Date")]
         public System.DateTime Date { get; set; }
+
+        [Display(Name = "Comments")]
         public string Comments { get; set; }
+
+        [ValidateIntrumentService]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide an instrument hire.")]
+        [Display(Name = "Instrument Hire")]
         public int InstrumentHireId { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a technician.")]
+        [Display(Name = "Technician")]
         public int TechnicianID { get; set; }
     
         public virtual InstrumentHire InstrumentHire { get; set; }
+
         public virtual Technician Technician { get; set; }
     }
 }

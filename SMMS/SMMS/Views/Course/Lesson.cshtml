@@ -5,18 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="panel" style="margin-top:50px;">
+<section class="panel" style="margin-top:100px;">
     <header class="panel-heading">
         <div class="panel-actions">
             <button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary fade" href="#modalLG" id="btnOpen"></button>
             <button class="btn btn-sm btn-primary btnAdd" data-url='@Url.Action("LessonAction", "Course", new { id = 0 })'>New Lesson</button>
         </div>
 
-        <h2 class="panel-title">List of lessons</h2>
+        <h2 class="panel-title">List of Lessons</h2>
     </header>
 </section>
 <div class="panel-body">
-    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="~/Content/assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" >
         <thead>
             <tr>
                 <th>
@@ -27,9 +27,6 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.CourseLevel.LevelName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Instrument.Name)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.LessonType.LessonName)
@@ -51,9 +48,6 @@
                         @Html.DisplayFor(modelItem => item.CourseLevel.LevelName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Instrument.Name)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.LessonType.LessonName)
                     </td>
                     <td>
@@ -71,4 +65,4 @@
 
 
 
-@Html.Raw(TempData["msg"])
+

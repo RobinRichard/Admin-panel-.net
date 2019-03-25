@@ -3,7 +3,7 @@
 (function( $ ) {
 
 	'use strict';
-
+    var jsonObj = [];
 	var initCalendarDragNDrop = function() {
 		$('#external-events div.external-event').each(function() {
 
@@ -26,13 +26,12 @@
 		});
 	};
 
-	var initCalendar = function() {
+    var initCalendar = function () {
 		var $calendar = $('#calendar');
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
 		var y = date.getFullYear();
-
 		$calendar.fullCalendar({
 			header: {
 				left: 'title',
@@ -52,8 +51,8 @@
 				next: 'fa fa-caret-right',
 			},
 
-			editable: true,
-			droppable: true, // this allows things to be dropped onto the calendar !!!
+            editable: false,
+			droppable: false, // this allows things to be dropped onto the calendar !!!
 			drop: function(date, allDay) { // this function is called when something is dropped
 				var $externalEvent = $(this);
 				// retrieve the dropped element's stored Event Object
@@ -77,54 +76,8 @@
 					$(this).remove();
 				}
 
-			},
-			events: [
-				{
-					title: 'All Day Event',
-					start: new Date(y, m, 1)
-				},
-				{
-					title: 'Long Event',
-					start: new Date(y, m, d-5),
-					end: new Date(y, m, d-2)
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d-3, 16, 0),
-					allDay: false
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: new Date(y, m, d+4, 16, 0),
-					allDay: false
-				},
-				{
-					title: 'Meeting',
-					start: new Date(y, m, d, 10, 30),
-					allDay: false
-				},
-				{
-					title: 'Lunch',
-					start: new Date(y, m, d, 12, 0),
-					end: new Date(y, m, d, 14, 0),
-					allDay: false,
-					className: 'fc-event-danger'
-				},
-				{
-					title: 'Birthday Party',
-					start: new Date(y, m, d+1, 19, 0),
-					end: new Date(y, m, d+1, 22, 30),
-					allDay: false
-				},
-				{
-					title: 'Click for Google',
-					start: new Date(y, m, 28),
-					end: new Date(y, m, 29),
-					url: 'http://google.com/'
-				}
-			]
+            },
+            events: jsonObj
 		});
 
 		// FIX INPUTS TO BOOTSTRAP VERSIONS
@@ -143,9 +96,29 @@
 			.attr({ 'class': 'btn btn-sm btn-default' });
 	};
 
-	$(function() {
-		initCalendar();
-		initCalendarDragNDrop();
+    $(function () {
+        $.ajax({
+            type: 'POST',
+            url: 'bindCalender',
+            data: '{ }',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (msg) {
+                var dataObj = JSON.parse(msg.data);
+                console.log(dataObj)
+                $.each(dataObj, function (key, value) {
+                    var item = {}
+                    item["title"] = value.Event;
+                    item["start"] = new Date(value.Year, value.Month-1, value.Day, value.StartTimeHour, value.StartTimeMin);
+                    item["allDay"] = false;
+                    item["id"] = value.UserID;
+                    jsonObj.push(item);
+                });
+                console.log(jsonObj)
+                initCalendar();
+                initCalendarDragNDrop();
+            }
+        });
+		
 	});
-
 }).apply(this, [ jQuery ]);

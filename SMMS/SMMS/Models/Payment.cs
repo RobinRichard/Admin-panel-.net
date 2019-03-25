@@ -11,14 +11,25 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Payment
     {
         public int PaymentID { get; set; }
+
+        [Display(Name = "Payable Amount")]
         public decimal PayableAmount { get; set; }
+
+        [Display(Name = "Paid Amount")]
         public decimal PaidAMount { get; set; }
+
+        [Display(Name = "Comments")]
         public string Comments { get; set; }
+
+        [Display(Name = "Enrolment")]
         public int EnrolmentID { get; set; }
+
+        [Display(Name = "Payment Status")]
         public int PaymentStatus { get; set; }
     
         public virtual Enrolment Enrolment { get; set; }

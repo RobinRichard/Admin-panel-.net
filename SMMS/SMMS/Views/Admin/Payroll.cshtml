@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SMMS.Models.Payroll>
+
+@{
+    ViewBag.Title = "Payroll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="panel" style="margin-top:100px;">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary fade" href="#modalLG" id="btnOpen"></button>
+            @*<button class="btn btn-sm btn-primary btnAdd" data-url='@Url.Action("AssertAction", "Admin", new { id = 0 })'>New Instrument</button>*@
+            @if (ViewBag.status)
+            {
+            <a href="@Url.Action("GeneratePayroll", "Admin")"><button class="btn btn-sm btn-primary" >Generate payroll</button></a>
+            }
+        </div>
+        <h2 class="panel-title">List of Payroll</h2>
+    </header>
+</section>
+<div class="panel-body">
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PayDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.GrossPay)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PaymentStatu.StatusName)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PayDate)
+                </td>
+               
+                <td>
+                    @Html.DisplayFor(modelItem => item.GrossPay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaymentStatu.StatusName)
+                </td>
+                <td>
+                    <button type="button" class="mb-xs mt-xs mr-xs btn btn-xs btn-info btnAdd" data-url='@Url.Action("PayrollAction", "Admin", new { id = item.PayrollID })'><i class="fa fa-pencil"></i> </button>
+                </td>
+            </tr>
+    }
+
+        </tbody>
+    </table>
+</div>

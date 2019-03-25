@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class CourseLevel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,14 +20,23 @@ namespace SMMS.Models
         {
             this.MusicSheets = new HashSet<MusicSheet>();
             this.Lessons = new HashSet<Lesson>();
+            this.InstumentLevels = new HashSet<InstumentLevel>();
         }
-    
+
+        [Required]
         public int CourseLevelID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a level name.")]
+        [Display(Name = "Level Name")]
         public string LevelName { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MusicSheet> MusicSheets { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lesson> Lessons { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InstumentLevel> InstumentLevels { get; set; }
     }
 }

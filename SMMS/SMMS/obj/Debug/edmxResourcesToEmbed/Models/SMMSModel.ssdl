@@ -54,9 +54,9 @@
       <PropertyRef Name="InstrumentAssertID" />
     </Key>
     <Property Name="InstrumentAssertID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Description" Type="varchar" MaxLength="100" />
     <Property Name="InstrumentID" Type="int" Nullable="false" />
     <Property Name="InstrumentConditionID" Type="int" Nullable="false" />
+    <Property Name="InstrumentCode" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="InstrumentCondition">
     <Key>
@@ -73,6 +73,15 @@
     <Property Name="Description" Type="varchar" MaxLength="100" />
     <Property Name="InstrumentAssertID" Type="int" Nullable="false" />
     <Property Name="EnrolmentID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InstumentLevel">
+    <Key>
+      <PropertyRef Name="InstumentLevelID" />
+    </Key>
+    <Property Name="InstumentLevelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InstrumentID" Type="int" Nullable="false" />
+    <Property Name="CourseLevelID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="InstumentService">
     <Key>
@@ -93,8 +102,8 @@
     <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="Description" Type="varchar" MaxLength="200" Nullable="false" />
     <Property Name="CourseLevelID" Type="int" Nullable="false" />
-    <Property Name="InstrumentID" Type="int" />
     <Property Name="LessonTypeID" Type="int" Nullable="false" />
+    <Property Name="InstrumentID" Type="int" />
   </EntityType>
   <EntityType Name="Lessonbatch">
     <Key>
@@ -108,6 +117,7 @@
     <Property Name="Description" Type="varchar" MaxLength="100" Nullable="false" />
     <Property Name="LessonID" Type="int" Nullable="false" />
     <Property Name="TutorID" Type="int" Nullable="false" />
+    <Property Name="BatchDate" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="LessonType">
     <Key>
@@ -136,6 +146,16 @@
     <Property Name="InstrumentID" Type="int" Nullable="false" />
     <Property Name="CourseLevelID" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="PayList">
+    <Key>
+      <PropertyRef Name="PayListID" />
+    </Key>
+    <Property Name="PayListID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Deduction" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="NetPay" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="PaymentDate" Type="date" Nullable="false" />
+    <Property Name="PayrollID" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="Payment">
     <Key>
       <PropertyRef Name="PaymentID" />
@@ -153,6 +173,17 @@
     </Key>
     <Property Name="PaymentStatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StatusName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Payroll">
+    <Key>
+      <PropertyRef Name="PayrollID" />
+    </Key>
+    <Property Name="PayrollID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PayDate" Type="datetime" Nullable="false" />
+    <Property Name="GrossPay" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="PaymentStatus" Type="int" Nullable="false" />
+    <Property Name="PreparationDate" Type="datetime" />
   </EntityType>
   <EntityType Name="Performance">
     <Key>
@@ -196,8 +227,8 @@
       <PropertyRef Name="TutorID" />
     </Key>
     <Property Name="TutorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="TutorLevelID" Type="int" Nullable="false" />
     <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="TutorLevelID" Type="int" />
   </EntityType>
   <EntityType Name="TutorLevel">
     <Key>
@@ -218,6 +249,7 @@
     <Property Name="Address" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="UserRoleID" Type="int" Nullable="false" />
+    <Property Name="DOB" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="UserRole">
     <Key>
@@ -226,6 +258,18 @@
     <Property Name="UserRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Role" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <Association Name="FK__Tutor__TutorLeve__22FF2F51">
+    <End Role="TutorLevel" Type="Self.TutorLevel" Multiplicity="0..1" />
+    <End Role="Tutor" Type="Self.Tutor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TutorLevel">
+        <PropertyRef Name="TutorLevelID" />
+      </Principal>
+      <Dependent Role="Tutor">
+        <PropertyRef Name="TutorLevelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_101">
     <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
     <End Role="FeeStructire" Type="Self.FeeStructire" Multiplicity="*" />
@@ -502,6 +546,78 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_270">
+    <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+    <End Role="InstumentLevel" Type="Self.InstumentLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Instrument">
+        <PropertyRef Name="InstrumentID" />
+      </Principal>
+      <Dependent Role="InstumentLevel">
+        <PropertyRef Name="InstrumentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_279">
+    <End Role="CourseLevel" Type="Self.CourseLevel" Multiplicity="1" />
+    <End Role="InstumentLevel" Type="Self.InstumentLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseLevel">
+        <PropertyRef Name="CourseLevelID" />
+      </Principal>
+      <Dependent Role="InstumentLevel">
+        <PropertyRef Name="CourseLevelID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_282">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="InstumentLevel" Type="Self.InstumentLevel" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="InstumentLevel">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_289">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Payroll">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_297">
+    <End Role="PaymentStatus" Type="Self.PaymentStatus" Multiplicity="1" />
+    <End Role="Payroll" Type="Self.Payroll" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PaymentStatus">
+        <PropertyRef Name="PaymentStatus" />
+      </Principal>
+      <Dependent Role="Payroll">
+        <PropertyRef Name="PaymentStatus" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_306">
+    <End Role="Payroll" Type="Self.Payroll" Multiplicity="1" />
+    <End Role="PayList" Type="Self.PayList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Payroll">
+        <PropertyRef Name="PayrollID" />
+      </Principal>
+      <Dependent Role="PayList">
+        <PropertyRef Name="PayrollID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_70">
     <End Role="CourseLevel" Type="Self.CourseLevel" Multiplicity="1" />
     <End Role="Lesson" Type="Self.Lesson" Multiplicity="*" />
@@ -550,18 +666,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_92">
-    <End Role="TutorLevel" Type="Self.TutorLevel" Multiplicity="1" />
-    <End Role="Tutor" Type="Self.Tutor" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TutorLevel">
-        <PropertyRef Name="TutorLevelID" />
-      </Principal>
-      <Dependent Role="Tutor">
-        <PropertyRef Name="TutorLevelID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <Function Name="PayrollAutomation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="IN705_201802_arulr1ModelStoreContainer">
     <EntitySet Name="CourseLevel" EntityType="Self.CourseLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Enrolment" EntityType="Self.Enrolment" Schema="dbo" store:Type="Tables" />
@@ -572,14 +677,17 @@
     <EntitySet Name="InstrumentAssert" EntityType="Self.InstrumentAssert" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="InstrumentCondition" EntityType="Self.InstrumentCondition" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="InstrumentHire" EntityType="Self.InstrumentHire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InstumentLevel" EntityType="Self.InstumentLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="InstumentService" EntityType="Self.InstumentService" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Lessonbatch" EntityType="Self.Lessonbatch" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LessonType" EntityType="Self.LessonType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Music" EntityType="Self.Music" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MusicSheet" EntityType="Self.MusicSheet" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PayList" EntityType="Self.PayList" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PaymentStatus" EntityType="Self.PaymentStatus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payroll" EntityType="Self.Payroll" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Performance" EntityType="Self.Performance" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PerformanceList" EntityType="Self.PerformanceList" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
@@ -588,6 +696,10 @@
     <EntitySet Name="TutorLevel" EntityType="Self.TutorLevel" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Tutor__TutorLeve__22FF2F51" Association="Self.FK__Tutor__TutorLeve__22FF2F51">
+      <End Role="TutorLevel" EntitySet="TutorLevel" />
+      <End Role="Tutor" EntitySet="Tutor" />
+    </AssociationSet>
     <AssociationSet Name="FK_101" Association="Self.FK_101">
       <End Role="Instrument" EntitySet="Instrument" />
       <End Role="FeeStructire" EntitySet="FeeStructire" />
@@ -680,6 +792,30 @@
       <End Role="User" EntitySet="User" />
       <End Role="Technician" EntitySet="Technician" />
     </AssociationSet>
+    <AssociationSet Name="FK_270" Association="Self.FK_270">
+      <End Role="Instrument" EntitySet="Instrument" />
+      <End Role="InstumentLevel" EntitySet="InstumentLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_279" Association="Self.FK_279">
+      <End Role="CourseLevel" EntitySet="CourseLevel" />
+      <End Role="InstumentLevel" EntitySet="InstumentLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_282" Association="Self.FK_282">
+      <End Role="User" EntitySet="User" />
+      <End Role="InstumentLevel" EntitySet="InstumentLevel" />
+    </AssociationSet>
+    <AssociationSet Name="FK_289" Association="Self.FK_289">
+      <End Role="User" EntitySet="User" />
+      <End Role="Payroll" EntitySet="Payroll" />
+    </AssociationSet>
+    <AssociationSet Name="FK_297" Association="Self.FK_297">
+      <End Role="PaymentStatus" EntitySet="PaymentStatus" />
+      <End Role="Payroll" EntitySet="Payroll" />
+    </AssociationSet>
+    <AssociationSet Name="FK_306" Association="Self.FK_306">
+      <End Role="Payroll" EntitySet="Payroll" />
+      <End Role="PayList" EntitySet="PayList" />
+    </AssociationSet>
     <AssociationSet Name="FK_70" Association="Self.FK_70">
       <End Role="CourseLevel" EntitySet="CourseLevel" />
       <End Role="Lesson" EntitySet="Lesson" />
@@ -695,10 +831,6 @@
     <AssociationSet Name="FK_82" Association="Self.FK_82">
       <End Role="EnsembleGroups" EntitySet="EnsembleGroups" />
       <End Role="Ensemble" EntitySet="Ensemble" />
-    </AssociationSet>
-    <AssociationSet Name="FK_92" Association="Self.FK_92">
-      <End Role="TutorLevel" EntitySet="TutorLevel" />
-      <End Role="Tutor" EntitySet="Tutor" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

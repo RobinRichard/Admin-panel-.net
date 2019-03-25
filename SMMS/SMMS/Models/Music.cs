@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Music
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,9 +20,15 @@ namespace SMMS.Models
         {
             this.MusicSheets = new HashSet<MusicSheet>();
         }
-    
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide music.")]
+        [Display(Name = "Music")]
         public int MusicID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a name.")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
+
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

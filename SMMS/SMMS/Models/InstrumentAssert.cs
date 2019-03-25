@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class InstrumentAssert
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,14 +20,26 @@ namespace SMMS.Models
         {
             this.InstrumentHires = new HashSet<InstrumentHire>();
         }
-    
+
+        [Required]
         public int InstrumentAssertID { get; set; }
-        public string Description { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide an instrument.")]
+        [Display(Name = "Instrument")]
         public int InstrumentID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a condition.")]
+        [Display(Name = "Condition")]
         public int InstrumentConditionID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a code.")]
+        [Display(Name = "Instrument Code")]
+        public string InstrumentCode { get; set; }
     
         public virtual Instrument Instrument { get; set; }
+
         public virtual InstrumentCondition InstrumentCondition { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InstrumentHire> InstrumentHires { get; set; }
     }

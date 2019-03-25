@@ -21,12 +21,12 @@ namespace SMMS.Models
         }
     
         public int TutorID { get; set; }
-        public int TutorLevelID { get; set; }
         public int UserID { get; set; }
+        public Nullable<int> TutorLevelID { get; set; }
     
         public virtual User User { get; set; }
-        public virtual TutorLevel TutorLevel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lessonbatch> Lessonbatches { get; set; }
+        public virtual TutorLevel TutorLevel { get; set; }
     }
 }

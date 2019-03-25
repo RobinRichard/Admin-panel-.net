@@ -11,12 +11,22 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PerformanceList
     {
         public int PerformanceListID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a time.")]
+        [Display(Name = "Time")]
         public System.TimeSpan PerformanceTime { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a music sheet.")]
+        [Display(Name = "Music Sheet")]
         public int MusicSheetID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a performance.")]
+        [Display(Name = "Performance")]
         public int PerformanceID { get; set; }
     
         public virtual MusicSheet MusicSheet { get; set; }

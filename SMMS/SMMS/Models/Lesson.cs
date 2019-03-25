@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Lesson
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,16 +22,30 @@ namespace SMMS.Models
         }
     
         public int LessonID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a name.")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a description.")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a course level.")]
+        [Display(Name = "Course Level")]
         public int CourseLevelID { get; set; }
-        public Nullable<int> InstrumentID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a lesson type.")]
+        [Display(Name = "Lesson Type")]
         public int LessonTypeID { get; set; }
+
+        [Display(Name = "Instrument")]
+        public Nullable<int> InstrumentID { get; set; }
     
         public virtual CourseLevel CourseLevel { get; set; }
-        public virtual Instrument Instrument { get; set; }
         public virtual LessonType LessonType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lessonbatch> Lessonbatches { get; set; }
+        public virtual Instrument Instrument { get; set; }
     }
 }

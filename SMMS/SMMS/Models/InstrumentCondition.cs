@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class InstrumentCondition
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,8 +20,12 @@ namespace SMMS.Models
         {
             this.InstrumentAsserts = new HashSet<InstrumentAssert>();
         }
-    
+
+        [Required]
         public int InstrumentConditionID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a condition.")]
+        [Display(Name = "Condition")]
         public string condition { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -4,18 +4,18 @@
     ViewBag.Title = "Note";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<section class="panel" style="margin-top:50px;">
+<section class="panel" style="margin-top:100px;">
     <header class="panel-heading">
         <div class="panel-actions">
             <button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary fade" href="#modalLG" id="btnOpen"></button>
             <button class="btn btn-sm btn-primary btnAdd" data-url='@Url.Action("NoteAction", "Orchestra", new { id = 0 })'>New Note</button>
         </div>
 
-        <h2 class="panel-title">List of musics notes</h2>
+        <h2 class="panel-title">List of Music Notes</h2>
     </header>
 </section>
 <div class="panel-body">
-    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="~/Content/assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" >
         <thead>
             <tr>
                 <th>
@@ -70,4 +70,4 @@
         </tbody>
     </table>
 </div>
-@Html.Raw(TempData["msg"])
+

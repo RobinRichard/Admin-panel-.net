@@ -34,6 +34,11 @@
     <link rel="stylesheet" href="~/Content/assets/vendor/select2/select2.css" />
     <link rel="stylesheet" href="~/Content/assets/vendor/jquery-datatables-bs3/assets/css/datatables.css" />
 
+    <!-- Specific Page Vendor CSS -->
+    <link rel="stylesheet" href="~/Content/assets/vendor/fullcalendar/fullcalendar.css" />
+    <link rel="stylesheet" href="~/Content/assets/vendor/fullcalendar/fullcalendar.print.css" media="print" />
+
+
     <!-- Modal Page Vendor CSS -->
     <link rel="stylesheet" href="~/Content/assets/vendor/pnotify/pnotify.custom.css" />
 
@@ -49,18 +54,7 @@
     <!-- Head Libs -->
     <script src="~/Content/assets/vendor/modernizr/modernizr.js"></script>
 
-    <!-- Vendor -->
-    <script src="~/Content/assets/vendor/jquery/jquery.js"></script>
-    <script src="~/Content/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
-    <script src="~/Content/assets/vendor/bootstrap/js/bootstrap.js"></script>
-    <script src="~/Content/assets/vendor/nanoscroller/nanoscroller.js"></script>
-    <script src="~/Content/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-    <script src="~/Content/assets/vendor/magnific-popup/magnific-popup.js"></script>
-    <script src="~/Content/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
 
-
-    <!-- Toast Page Vendor -->
-    <script src="~/Content/assets/vendor/pnotify/pnotify.custom.js"></script>
 
 
 
@@ -84,96 +78,214 @@
                     <div class="nano-content">
                         <nav id="menu" class="nav-main" role="navigation">
                             <ul class="nav nav-main">
-                                <li class="nav-active">
-                                    <a href="@Url.Action("Index", "Home" )">
-                                        <i class="fa fa-home" aria-hidden="true"></i>
-                                        <span>Dashboard</span>
-                                    </a>
-                                </li>
-                                <li class="nav-parent">
-                                    <a>
-                                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                                        <span>Admin Function</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li class="" data-id="123">
-                                            <a href="@Url.Action("Student", "Master" )">
-                                                Students
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Tutors", "Master" )">
-                                                Tutors
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="ui-elements-icons.html">
-                                                Technicians
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-parent">
-                                    <a>
-                                        <i class="fa fa-tasks" aria-hidden="true"></i>
-                                        <span>Course</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li class="" data-id="123">
-                                            <a href="@Url.Action("CourseLevel", "Course" )">
-                                                Course Level
-                                            </a>
-                                        </li>
-                                        <li class="" data-id="123">
-                                            <a href="@Url.Action("LessonType", "Course" )">
-                                                Lesson Types
-                                            </a>
-                                        </li>
-                                        <li class="" data-id="123">
-                                            <a href="@Url.Action("Instument", "Course" )">
-                                                Intrument
-                                            </a>
-                                        </li>
-                                        <li class="" data-id="123">
-                                            <a href="@Url.Action("Lesson", "Course" )">
-                                                Lesson
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Batch", "Course" )">
-                                                Lesson Batch
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-parent">
-                                    <a>
-                                        <i class="fa fa-list-alt" aria-hidden="true"></i>
-                                        <span>Orchestra</span>
-                                    </a>
-                                    <ul class="nav nav-children">
-                                        <li>
-                                            <a href="@Url.Action("Music", "Orchestra" )">
-                                                Music
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Note", "Orchestra" )">
-                                                Music Notes
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Program", "Orchestra" )">
-                                                Programs
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="@Url.Action("Performance", "Orchestra" )">
-                                                Performance
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                @if (Session.Keys.Count > 0)
+                                {
+                                    if (Session["UserTypeID"].ToString() == "1")
+                                    {
+                            <li class="nav-active">
+                                <a href="@Url.Action("Index", "Home")">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-tasks" aria-hidden="true"></i>
+                                    <span>Master</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li class="" data-id="123">
+                                        <a href="@Url.Action("Student", "Master")">
+                                            Students
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Tutors", "Master")">
+                                            Tutors
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Technician", "Master")">
+                                            Technicians
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                    <span>Admin Function</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+
+                                    <li>
+                                        <a href="@Url.Action("Enrolment", "Admin")">
+                                            Enrolment
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Fee", "Admin")">
+                                            Fee Structure
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Payment", "Admin")">
+                                            Payment
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Payroll", "Admin")">
+                                            Payroll
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-active">
+                                <a href="@Url.Action("Ensemble", "Master")">
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                    <span>Ensemble</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-active">
+                                <a href="@Url.Action("schedule", "Home")">
+                                    <i class="fa fa-users" aria-hidden="true"></i>
+                                    <span>Schedule</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-music" aria-hidden="true"></i>
+                                    <span>Instrument</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li class="" data-id="123">
+                                        <a href="@Url.Action("Instument", "Course")">
+                                            Instrument
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Assert", "Admin")">
+                                            Instrument Assert
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a href="@Url.Action("Hire", "Admin")">
+                                            Instrument Hire
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Service", "Admin")">
+                                            Instrument Service
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-mortar-board" aria-hidden="true"></i>
+                                    <span>Course</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li class="" data-id="123">
+                                        <a href="@Url.Action("CourseLevel", "Course")">
+                                            Course Level
+                                        </a>
+                                    </li>
+                                    <li class="" data-id="123">
+                                        <a href="@Url.Action("LessonType", "Course")">
+                                            Lesson Types
+                                        </a>
+                                    </li>
+
+                                    <li class="" data-id="123">
+                                        <a href="@Url.Action("Lesson", "Course")">
+                                            Lesson
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Batch", "Course")">
+                                            Lesson Batch
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-parent">
+                                <a>
+                                    <i class="fa fa-microphone" aria-hidden="true"></i>
+                                    <span>Orchestra</span>
+                                </a>
+                                <ul class="nav nav-children">
+                                    <li>
+                                        <a href="@Url.Action("Music", "Orchestra")">
+                                            Music
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Note", "Orchestra")">
+                                            Music Notes
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Program", "Orchestra")">
+                                            Programs
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("Performance", "Orchestra")">
+                                            Performance
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                                    }
+                                    else if (Session["UserTypeID"].ToString() == "3" && Session["TutorType"].ToString() == "1")
+                                    {
+                            <li class="nav-active">
+                                <a href="@Url.Action("Index", "Home")">
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                    <span>Dashboard</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a href="@Url.Action("Batch", "Course")">
+                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                    <span>Batch</span>
+                                </a>
+                            </li>
+                            <li class="nav-active">
+                                <a href="@Url.Action("schedule", "Home")">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    <span>schedule</span>
+                                </a>
+                            </li>
+
+                                    }
+                                    else if (Session["UserTypeID"].ToString() == "2")
+                                    {
+                            <li class="nav-active">
+                                <a href="@Url.Action("ServiceList", "Home")">
+                                    <i class="fa fa-gears" aria-hidden="true"></i>
+                                    <span>Service List</span>
+                                </a>
+                            </li>
+
+                                    }
+                                    else
+                                    {
+                            <li class="nav-active">
+                                <a href="@Url.Action("schedule", "Home")">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    <span>schedule</span>
+                                </a>
+                            </li>
+                                    }
+                                }
 
                             </ul>
                         </nav>
@@ -196,9 +308,18 @@
                                 <figure class="profile-picture">
                                     <img src="~/Content/assets/images/user.png" alt="Joseph Doe" class="img-circle" />
                                 </figure>
-                                <div class="profile-info" data-lock-name="John Doe" data-lock-email="johndoe@JSOFT.com">
-                                    <span class="name">ADMIN</span>
-                                    <span class="role">administrator</span>
+                                <div class="profile-info" data-lock-name="John Doe">
+                                    @if (Session.Keys.Count > 0)
+                                    {
+                                        <span class="name"> @Session["UserName"].ToString().ToUpper()</span>
+                                        <span class="role"> @Session["UserType"].ToString().ToUpper()</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="name">User</span>
+                                        <span class="role">UserType</span>
+                                    }
+
                                 </div>
 
                                 <i class="fa custom-caret"></i>
@@ -207,14 +328,9 @@
                             <div class="dropdown-menu">
                                 <ul class="list-unstyled">
                                     <li class="divider"></li>
+
                                     <li>
-                                        <a role="menuitem" tabindex="-1" href="pages-user-profile.html"><i class="fa fa-user"></i> My Profile</a>
-                                    </li>
-                                    <li>
-                                        <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i> Lock Screen</a>
-                                    </li>
-                                    <li>
-                                        <a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
+                                        <a role="menuitem" tabindex="-1" href="@Url.Action("Logout", "Home")"><i class="fa fa-power-off"></i> Logout</a>
                                     </li>
                                 </ul>
                             </div>
@@ -224,7 +340,23 @@
 
 
                 </header>
-
+                <!-- start: page -->
+                <div class="col-md-12 col-lg-12 col-xl-12" style="border-bottom:1px solid #b0b0b0;">
+                    <div class="col-md-6 col-lg-6 col-xl-6">
+                        <h2 class="text-dark" id="heading"></h2>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-6">
+                        <div class="right-wrapper pull-right mt-md">
+                            <ol class="breadcrumbs" id="breadcrumb">
+                                <li>
+                                    <a href="index.html">
+                                        <i class="fa fa-home"></i>
+                                    </a>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
 
                 @RenderBody()
             </section>
@@ -237,6 +369,19 @@
 
         </div>
     </div>
+
+    <!-- Vendor -->
+    <script src="~/Content/assets/vendor/jquery/jquery.js"></script>
+    <script src="~/Content/assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="~/Content/assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Content/assets/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="~/Content/assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/assets/vendor/magnific-popup/magnific-popup.js"></script>
+    <script src="~/Content/assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+
+    <!-- Toast Page Vendor -->
+    <script src="~/Content/assets/vendor/pnotify/pnotify.custom.js"></script>
 
     <!-- Specific Page Vendor -->
     <script src="~/Content/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
@@ -278,6 +423,11 @@
     <!-- Modal pag vendor -->
     <script src="~/Content/assets/javascripts/ui-elements/examples.modals.js"></script>
 
+    <!-- Specific Page Vendor -->
+    <script src="~/Content/assets/vendor/jquery-ui/js/jquery-ui-1.10.4.custom.js"></script>
+    <script src="~/Content/assets/vendor/jquery-ui-touch-punch/jquery.ui.touch-punch.js"></script>
+    <script src="~/Content/assets/vendor/fullcalendar/lib/moment.min.js"></script>
+    <script src="~/Content/assets/vendor/fullcalendar/fullcalendar.js"></script>
 
     <!-- Theme Base, Components and Settings -->
     <script src="~/Content/assets/javascripts/theme.js"></script>
@@ -296,10 +446,13 @@
     <script src="~/Content/assets/javascripts/tables/examples.datatables.default.js"></script>
     <script src="~/Content/assets/javascripts/tables/examples.datatables.row.with.details.js"></script>
     <script src="~/Content/assets/javascripts/tables/examples.datatables.tabletools.js"></script>
+    <script src="~/Content/assets/javascripts/pages/examples.calendar.js"></script>
 
     <!-- SMMS scrip-->
     <script src="~/Content/scripts/smms.js"></script>
-    <script src="~/Content/scripts/course.js"></script>
+
+    <!--alert-->
+    @Html.Raw(TempData["msg"])
 </body>
 </html>
 

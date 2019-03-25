@@ -59,7 +59,7 @@ a:active {
 /* Layout Base - Content Body */
 .content-body {
 	display: table-cell;
-	padding: 40px;
+	padding: 20px 10px 10px 10px;
 	position: relative;
 	vertical-align: top;
 }
@@ -2473,7 +2473,7 @@ ul.nav-main li .nav-children .nav-children .nav-children li a {
 	float: right;
 }
 
-.page-header .breadcrumbs {
+.breadcrumbs {
 	display: inline-block;
 	font-size: 0;
 	line-height: 50px;
@@ -2481,13 +2481,13 @@ ul.nav-main li .nav-children .nav-children .nav-children li a {
 	padding: 0;
 }
 
-.page-header .breadcrumbs li {
+.breadcrumbs li {
 	color: #c3c3c3;
 	display: inline-block;
 	font-weight: 300;
 }
 
-.page-header .breadcrumbs li:after {
+.breadcrumbs li:after {
 	content: '/';
 	display: inline-block;
 	font-size: 14px;
@@ -2496,21 +2496,21 @@ ul.nav-main li .nav-children .nav-children .nav-children li a {
 	vertical-align: middle;
 }
 
-.page-header .breadcrumbs li:last-child:after {
+.breadcrumbs li:last-child:after {
 	display: none;
 }
 
-.page-header .breadcrumbs .fa-home {
+.breadcrumbs .fa-home {
 	font-size: 20px;
 	font-size: 2rem;
 }
 
-.page-header .breadcrumbs i {
+.breadcrumbs i {
 	vertical-align: middle;
 }
 
-.page-header .breadcrumbs a,
-.page-header .breadcrumbs span {
+.breadcrumbs a,
+.breadcrumbs span {
 	color: #c3c3c3;
 	display: inline-block;
 	font-size: 14px;

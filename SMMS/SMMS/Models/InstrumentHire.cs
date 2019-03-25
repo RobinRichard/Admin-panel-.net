@@ -9,9 +9,11 @@
 
 namespace SMMS.Models
 {
+    using MVCApplication;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class InstrumentHire
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,14 +21,29 @@ namespace SMMS.Models
         {
             this.InstumentServices = new HashSet<InstumentService>();
         }
-    
-        public int InstrumentHireId { get; set; }
-        public string Description { get; set; }
+
+        [Required]
+        [ValidateInstrumentStaus("EnrolmentID", "Instrument is already hired.")]
+        [Display(Name = "Instrument Code")]
         public int InstrumentAssertID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a student enrolment.")]
+        [Display(Name = "Student Enrolment")]
+        [InstrumentHireValidate("InstrumentAssertID", "Enrolment can't hire this instrument.")]
         public int EnrolmentID { get; set; }
-    
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a description.")]
+        [Display(Name = "Description")]
+        public int InstrumentHireId { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide an instrument hire description.")]
+        [Display(Name = "Instrument Hire Description")]
+        public string Description { get; set; }
+
         public virtual Enrolment Enrolment { get; set; }
+
         public virtual InstrumentAssert InstrumentAssert { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<InstumentService> InstumentServices { get; set; }
     }

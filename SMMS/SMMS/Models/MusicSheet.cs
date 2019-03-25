@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class MusicSheet
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,13 +22,31 @@ namespace SMMS.Models
         }
     
         public int MusicSheetID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a count.")]
+        [Display(Name = "Count")]
         public int Count { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a description.")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide music.")]
+        [Display(Name = "Music")]
         public int MusicID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide an instrument.")]
+        [Display(Name = "Instrument")]
         public int InstrumentID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a course.")]
+        [Display(Name = "Course Level")]
         public int CourseLevelID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a name.")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
-    
+
         public virtual CourseLevel CourseLevel { get; set; }
         public virtual Instrument Instrument { get; set; }
         public virtual Music Music { get; set; }

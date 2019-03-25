@@ -1,4 +1,5 @@
-﻿using SMMS.Models;
+﻿using SMMS.App_Start;
+using SMMS.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Web.Mvc;
 
 namespace SMMS.Controllers
 {
+    [SessionConfig]
     public class OrchestraController : Controller
     {
         IN705_201802_arulr1Entities1 entities;
@@ -41,26 +43,41 @@ namespace SMMS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult MusicAction(Music music)
         {
-            string msg = "";
+            ModelState.Remove("MusicID");
 
-            if (music.MusicID > 0)
+            if (ModelState.IsValid)
             {
-                var dataset = entities.Musics.Where(f => f.MusicID == music.MusicID).FirstOrDefault();
-                if (dataset != null)
+                string msg = "";
+
+                if (music.MusicID > 0)
                 {
-                    dataset.Name = music.Name;
-                    dataset.Description = music.Description;
-                    msg = "Music Updated Successfully";
+                    var dataset = entities.Musics.Where(f => f.MusicID == music.MusicID).FirstOrDefault();
+                    if (dataset != null)
+                    {
+                        dataset.Name = music.Name;
+                        dataset.Description = music.Description;
+                        msg = "Music Updated Successfully";
+                    }
                 }
+                else
+                {
+                    entities.Musics.Add(music);
+                    msg = "New Music Added successfully";
+                }
+                entities.SaveChanges();
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        success = true,
+                        action = "Music",
+                        message = msg
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
-            else
-            {
-                entities.Musics.Add(music);
-                msg = "New Music Added successfully";
-            }
-            entities.SaveChanges();
-            TempData["msg"] = "<script>$(document).ready(function () {new PNotify({title: 'Success',text: '" + msg + "',type: 'success'});});</script>";
-            return RedirectToAction("Music");
+
+            return PartialView(music);
 
         }
 
@@ -77,7 +94,7 @@ namespace SMMS.Controllers
             ViewBag.drpCourseLevel = CommonController.drpCourseLevel();
             ViewBag.drpInstrument = CommonController.drpInstrument();
             ViewBag.drpMusic = CommonController.drpMusic();
-            
+
             if (id != 0)
             {
                 MusicSheet dataset = entities.MusicSheets.Find(id);
@@ -93,30 +110,45 @@ namespace SMMS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult NoteAction(MusicSheet music)
         {
-            string msg = "";
+            ModelState.Remove("MusicSheetID");
 
-            if (music.MusicSheetID > 0)
+            if (ModelState.IsValid)
             {
-                var dataset = entities.MusicSheets.Where(f => f.MusicSheetID == music.MusicSheetID).FirstOrDefault();
-                if (dataset != null)
+                string msg = "";
+
+                if (music.MusicSheetID > 0)
                 {
-                    dataset.Count = music.Count;
-                    dataset.Description = music.Description;
-                    dataset.MusicID = music.MusicID;
-                    dataset.InstrumentID = music.InstrumentID;
-                    dataset.CourseLevelID = music.CourseLevelID;
+                    var dataset = entities.MusicSheets.Where(f => f.MusicSheetID == music.MusicSheetID).FirstOrDefault();
+                    if (dataset != null)
+                    {
+                        dataset.Count = music.Count;
+                        dataset.Description = music.Description;
+                        dataset.MusicID = music.MusicID;
+                        dataset.InstrumentID = music.InstrumentID;
+                        dataset.CourseLevelID = music.CourseLevelID;
 
-                    msg = "Notes Updated Successfully";
+                        msg = "Notes Updated Successfully";
+                    }
                 }
+                else
+                {
+                    entities.MusicSheets.Add(music);
+                    msg = "New Notes Added successfully";
+                }
+                entities.SaveChanges();
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        success = true,
+                        action = "Note",
+                        message = msg
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
-            else
-            {
-                entities.MusicSheets.Add(music);
-                msg = "New Notes Added successfully";
-            }
-            entities.SaveChanges();
-            TempData["msg"] = "<script>$(document).ready(function () {new PNotify({title: 'Success',text: '" + msg + "',type: 'success'});});</script>";
-            return RedirectToAction("Note");
+
+            return PartialView(music);
 
         }
 
@@ -145,27 +177,43 @@ namespace SMMS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult ProgramAction(Performance performance)
         {
-            string msg = "";
 
-            if (performance.PerformanceID > 0)
+            ModelState.Remove("PerformanceID");
+
+            if (ModelState.IsValid)
             {
-                var dataset = entities.Performances.Where(f => f.PerformanceID == performance.PerformanceID).FirstOrDefault();
-                if (dataset != null)
+                string msg = "";
+
+                if (performance.PerformanceID > 0)
                 {
-                    dataset.Name = performance.Name;
-                    dataset.PerformanceDate = performance.PerformanceDate;
-                    dataset.Loaction = performance.Loaction;
-                    msg = "Program Updated Successfully";
+                    var dataset = entities.Performances.Where(f => f.PerformanceID == performance.PerformanceID).FirstOrDefault();
+                    if (dataset != null)
+                    {
+                        dataset.Name = performance.Name;
+                        dataset.PerformanceDate = performance.PerformanceDate;
+                        dataset.Loaction = performance.Loaction;
+                        msg = "Program Updated Successfully";
+                    }
                 }
+                else
+                {
+                    entities.Performances.Add(performance);
+                    msg = "New Program Added successfully";
+                }
+                entities.SaveChanges();
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        success = true,
+                        action = "Program",
+                        message = msg
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
-            else
-            {
-                entities.Performances.Add(performance);
-                msg = "New Program Added successfully";
-            }
-            entities.SaveChanges();
-            TempData["msg"] = "<script>$(document).ready(function () {new PNotify({title: 'Success',text: '" + msg + "',type: 'success'});});</script>";
-            return RedirectToAction("Program");
+
+            return PartialView(performance);
 
         }
 
@@ -197,27 +245,42 @@ namespace SMMS.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult PerformanceAction(PerformanceList performance)
         {
-            string msg = "";
+            ModelState.Remove("PerformanceListID");
 
-            if (performance.PerformanceListID > 0)
+            if (ModelState.IsValid)
             {
-                var dataset = entities.PerformanceLists.Where(f => f.PerformanceListID == performance.PerformanceListID).FirstOrDefault();
-                if (dataset != null)
+                string msg = "";
+
+                if (performance.PerformanceListID > 0)
                 {
-                    dataset.PerformanceTime = performance.PerformanceTime;
-                    dataset.MusicSheetID = performance.MusicSheetID;
-                    dataset.PerformanceID = performance.PerformanceID;
-                    msg = "performance Updated Successfully";
+                    var dataset = entities.PerformanceLists.Where(f => f.PerformanceListID == performance.PerformanceListID).FirstOrDefault();
+                    if (dataset != null)
+                    {
+                        dataset.PerformanceTime = performance.PerformanceTime;
+                        dataset.MusicSheetID = performance.MusicSheetID;
+                        dataset.PerformanceID = performance.PerformanceID;
+                        msg = "performance Updated Successfully";
+                    }
                 }
+                else
+                {
+                    entities.PerformanceLists.Add(performance);
+                    msg = "New performance Added successfully";
+                }
+                entities.SaveChanges();
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        success = true,
+                        action = "Program",
+                        message = msg
+                    },
+                    JsonRequestBehavior = JsonRequestBehavior.AllowGet
+                };
             }
-            else
-            {
-                entities.PerformanceLists.Add(performance);
-                msg = "New performance Added successfully";
-            }
-            entities.SaveChanges();
-            TempData["msg"] = "<script>$(document).ready(function () {new PNotify({title: 'Success',text: '" + msg + "',type: 'success'});});</script>";
-            return RedirectToAction("Performance");
+
+            return PartialView(performance);
 
         }
     }

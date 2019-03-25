@@ -41,8 +41,8 @@
     <EntitySetMapping Name="InstrumentAsserts">
       <EntityTypeMapping TypeName="IN705_201802_arulr1Model.InstrumentAssert">
         <MappingFragment StoreEntitySet="InstrumentAssert">
+          <ScalarProperty Name="InstrumentCode" ColumnName="InstrumentCode" />
           <ScalarProperty Name="InstrumentAssertID" ColumnName="InstrumentAssertID" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
           <ScalarProperty Name="InstrumentConditionID" ColumnName="InstrumentConditionID" />
         </MappingFragment>
@@ -107,8 +107,8 @@
     <EntitySetMapping Name="Tutors">
       <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Tutor">
         <MappingFragment StoreEntitySet="Tutor">
-          <ScalarProperty Name="TutorID" ColumnName="TutorID" />
           <ScalarProperty Name="TutorLevelID" ColumnName="TutorLevelID" />
+          <ScalarProperty Name="TutorID" ColumnName="TutorID" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -124,6 +124,7 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="IN705_201802_arulr1Model.User">
         <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
           <ScalarProperty Name="UserID" ColumnName="UserID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
@@ -186,8 +187,8 @@
     <EntitySetMapping Name="Lessons">
       <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Lesson">
         <MappingFragment StoreEntitySet="Lesson">
-          <ScalarProperty Name="LessonTypeID" ColumnName="LessonTypeID" />
           <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+          <ScalarProperty Name="LessonTypeID" ColumnName="LessonTypeID" />
           <ScalarProperty Name="CourseLevelID" ColumnName="CourseLevelID" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -198,6 +199,7 @@
     <EntitySetMapping Name="Lessonbatches">
       <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Lessonbatch">
         <MappingFragment StoreEntitySet="Lessonbatch">
+          <ScalarProperty Name="BatchDate" ColumnName="BatchDate" />
           <ScalarProperty Name="TutorID" ColumnName="TutorID" />
           <ScalarProperty Name="LessonID" ColumnName="LessonID" />
           <ScalarProperty Name="Description" ColumnName="Description" />
@@ -252,5 +254,40 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="InstumentLevels">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.InstumentLevel">
+        <MappingFragment StoreEntitySet="InstumentLevel">
+          <ScalarProperty Name="InstumentLevelID" ColumnName="InstumentLevelID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="CourseLevelID" ColumnName="CourseLevelID" />
+          <ScalarProperty Name="InstrumentID" ColumnName="InstrumentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Payrolls">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.Payroll">
+        <MappingFragment StoreEntitySet="Payroll">
+          <ScalarProperty Name="PreparationDate" ColumnName="PreparationDate" />
+          <ScalarProperty Name="PaymentStatus" ColumnName="PaymentStatus" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="GrossPay" ColumnName="GrossPay" />
+          <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+          <ScalarProperty Name="PayrollID" ColumnName="PayrollID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PayLists">
+      <EntityTypeMapping TypeName="IN705_201802_arulr1Model.PayList">
+        <MappingFragment StoreEntitySet="PayList">
+          <ScalarProperty Name="PayrollID" ColumnName="PayrollID" />
+          <ScalarProperty Name="PaymentDate" ColumnName="PaymentDate" />
+          <ScalarProperty Name="NetPay" ColumnName="NetPay" />
+          <ScalarProperty Name="Deduction" ColumnName="Deduction" />
+          <ScalarProperty Name="PayListID" ColumnName="PayListID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="PayrollAutomation" FunctionName="IN705_201802_arulr1Model.Store.PayrollAutomation" />
+    <FunctionImportMapping FunctionImportName="PayrollAutomation1" FunctionName="IN705_201802_arulr1Model.Store.PayrollAutomation" />
   </EntityContainerMapping>
 </Mapping>

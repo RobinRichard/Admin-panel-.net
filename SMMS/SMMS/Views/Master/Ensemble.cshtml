@@ -1,0 +1,49 @@
+﻿@model IEnumerable<SMMS.Models.Ensemble>
+
+@{
+    ViewBag.Title = "Ensemble";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="panel" style="margin-top:100px;">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            @*<button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary fade" href="#modalLG" id="btnOpen"></button>
+            <button class="btn btn-sm btn-primary btnAdd" data-url='@Url.Action("TechnicianAction", "Master", new { id = 0 })'>New Technician</button>*@
+        </div>
+        <h2 class="panel-title">List of Ensembles</h2>
+    </header>
+</section>
+<div class="panel-body">
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student.User.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Student.User.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EnsembleGroup.GroupName)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.User.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Student.User.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnsembleGroup.GroupName)
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>

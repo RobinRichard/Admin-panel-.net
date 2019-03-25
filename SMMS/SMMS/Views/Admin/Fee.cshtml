@@ -1,0 +1,61 @@
+﻿@model IEnumerable<SMMS.Models.FeeStructire>
+
+@{
+    ViewBag.Title = "Fee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section class="panel" style="margin-top:100px;">
+    <header class="panel-heading">
+        <div class="panel-actions">
+            <button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary fade" href="#modalLG" id="btnOpen"></button>
+            <button class="btn btn-sm btn-primary btnAdd" data-url='@Url.Action("FeeAction", "Admin", new { id = 0 })'>New Fee structure</button>
+        </div>
+        <h2 class="panel-title">List of Fee Structure</h2>
+    </header>
+</section>
+<div class="panel-body">
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" >
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.StudentFee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OpenFee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HireFee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Instrument.Name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentFee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OpenFee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HireFee)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Instrument.Name)
+                    </td>
+                    <td>
+                        <button type="button" class="mb-xs mt-xs mr-xs btn btn-xs btn-info btnAdd" data-url='@Url.Action("FeeAction", "Admin", new { id = item.FeeID })'><i class="fa fa-pencil"></i> </button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+

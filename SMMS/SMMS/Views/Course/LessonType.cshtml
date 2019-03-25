@@ -5,18 +5,18 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<section class="panel" style="margin-top:50px;">
+<section class="panel" style="margin-top:100px;">
 <header class="panel-heading">
     <div class="panel-actions">
         <button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary fade" href="#modalLG" id="btnOpen"></button>
         <button class="btn btn-sm btn-primary btnAdd" data-url='@Url.Action("LessonTypeAction", "Course", new { id = 0 })'>New Lesson Type</button>
     </div>
 
-    <h2 class="panel-title">List of lesson types</h2>
+    <h2 class="panel-title">List of Lesson Types</h2>
 </header>
 </section>
 <div class="panel-body">
-    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="~/Content/assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" >
         <thead>
             <tr>
                 <th>
@@ -44,4 +44,4 @@
 
 
 
-@Html.Raw(TempData["msg"])
+

@@ -9,9 +9,11 @@
 
 namespace SMMS.Models
 {
+    using MVCApplication;
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Lessonbatch
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,16 +21,45 @@ namespace SMMS.Models
         {
             this.Enrolments = new HashSet<Enrolment>();
         }
-    
+
         public int LessonBatchID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a name.")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a duration.")]
+        [Display(Name = "Duration")]
+        [Range(30, 30, ErrorMessage = "Duration should be '30' minutes")]
         public int Duration { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a start time.")]
+        [Display(Name = "Start Time")]
+        [ValidateStartTimeRange]
         public System.TimeSpan StartTime { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide an end time.")]
+        [Display(Name = "End Time")]
+        [ValidateEndTimeRange]
         public System.TimeSpan EndTime { get; set; }
+
+        [Display(Name = "Description")]
         public string Description { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a lesson.")]
+        [Display(Name = "Lesson")]
         public int LessonID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a tutor.")]
+        [Display(Name = "Tutor")]
+        [LevelConflit("LessonID", "Conflict in levels of selected course and tutor")]
         public int TutorID { get; set; }
-    
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a date.")]
+        [Display(Name = "Date")]
+        [ValidateDateDay]
+        public System.DateTime BatchDate { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Enrolment> Enrolments { get; set; }
         public virtual Lesson Lesson { get; set; }

@@ -11,15 +11,29 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class FeeStructire
     {
+        [Required]
         public int FeeID { get; set; }
-        public decimal StudentFee { get; set; }
-        public decimal OpenFee { get; set; }
-        public decimal HireFee { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide an instrument.")]
+        [Display(Name = "Instrument")]
         public int InstrumentID { get; set; }
-    
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a student fee.")]
+        [Display(Name = "Student Fee")]
+        public decimal StudentFee { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide an open fee.")]
+        [Display(Name = "Open Fee")]
+        public decimal OpenFee { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a hire fee.")]
+        [Display(Name = "Hire Fee")]
+        public decimal HireFee { get; set; }
+        
         public virtual Instrument Instrument { get; set; }
     }
 }

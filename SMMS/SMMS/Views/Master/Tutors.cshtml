@@ -5,79 +5,54 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Tutors</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<!-- start: page -->
-@*<header style="margin-top:50px;background:#FFF" class="page-header">
-    <h2 class="text-dark">Students</h2>*@
-<div class="page-header">
-    <div class="right-wrapper">
-        <ol class="breadcrumbs">
-            <li>
-                <a href="@Url.Action("Index", "Home" )">
-                    <i class="fa fa-home"></i>
-                </a>
-            </li>
-            <li><span>Admin</span></li>
-            <li><span>Students</span></li>
-        </ol>
-    </div>
-</div>
-@*</header>*@
-<section class="panel" style="margin-top:50px;">
+<section class="panel" style="margin-top:100px;">
     <header class="panel-heading">
         <div class="panel-actions">
-            @Html.ActionLink("Create New", "TutorsAction", new {@class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary"})
-            @*<button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary" href="#modalLG">New Student</button>*@
+            <button class="mb-xs mt-xs mr-xs modal-sizes btn btn-sm btn-primary fade" href="#modalLG" id="btnOpen"></button>
+            <button class="btn btn-sm btn-primary btnAdd" data-url='@Url.Action("TutorAction", "Master", new { id = 0 })'>New Tutor</button>
         </div>
 
         <h2 class="panel-title">List of Tutors</h2>
     </header>
-    <div class="panel-body">
-        <table class="table table-bordered table-striped mb-none" id="datatable-tabletools" data-swf-path="~/Content/assets/vendor/jquery-datatables/extras/TableTools/swf/copy_csv_xls_pdf.swf">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.User.FirstName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.User.LastName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.TutorLevel.LevelName)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User.FirstName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.User.LastName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TutorLevel.LevelName)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.TutorID }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.TutorID }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.TutorID })
-                        </td>
-                    </tr>
-                }
-
-            </tbody>
-        </table>
-    </div>
 </section>
-<!-- end: page -->
-
+<div class="panel-body">
+    <table class="table table-bordered table-striped mb-none" id="datatable-tabletools">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User.Email)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Email)
+                    </td>
+                    <td>
+                        <button type="button" class="mb-xs mt-xs mr-xs btn btn-xs btn-info btnAdd" data-url='@Url.Action("TutorAction", "Master", new { id = item.TutorID })'><i class="fa fa-pencil"></i> </button>
+                        <a class="mb-xs mt-xs mr-xs btn btn-xs btn-info" href="TutorSkill?id=@item.TutorID"><i class="fa fa-music"></i></a>
+                        <button type="button" class="mb-xs mt-xs mr-xs btn btn-xs btn-info btnAdd" data-url='@Url.Action("TutorPaylist", "Master", new { id = item.UserID })'><i class="fa fa-dollar"></i> </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 

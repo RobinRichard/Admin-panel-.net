@@ -11,7 +11,8 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Performance
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,8 +22,17 @@ namespace SMMS.Models
         }
     
         public int PerformanceID { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a date.")]
+        [Display(Name = "Date")]
         public System.DateTime PerformanceDate { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a location.")]
+        [Display(Name = "Location")]
         public string Loaction { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Please provide a name.")]
+        [Display(Name = "Name")]
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

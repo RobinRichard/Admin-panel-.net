@@ -12,6 +12,8 @@ namespace SMMS.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class IN705_201802_arulr1Entities1 : DbContext
     {
@@ -50,5 +52,18 @@ namespace SMMS.Models
         public virtual DbSet<MusicSheet> MusicSheets { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
         public virtual DbSet<PerformanceList> PerformanceLists { get; set; }
+        public virtual DbSet<InstumentLevel> InstumentLevels { get; set; }
+        public virtual DbSet<Payroll> Payrolls { get; set; }
+        public virtual DbSet<PayList> PayLists { get; set; }
+    
+        public virtual int PayrollAutomation()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PayrollAutomation");
+        }
+    
+        public virtual int PayrollAutomation1()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("PayrollAutomation1");
+        }
     }
 }

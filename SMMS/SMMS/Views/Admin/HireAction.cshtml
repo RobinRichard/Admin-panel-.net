@@ -1,0 +1,49 @@
+﻿@model SMMS.Models.InstrumentHire
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <section class="panel">
+        <header class="panel-heading">
+            <h2 class="panel-title">Instrument Hire Action</h2>
+        </header>
+        <div class="panel-body">
+            <div class="form-horizontal">
+                @Html.HiddenFor(model => model.InstrumentHireId)
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.InstrumentAssertID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("InstrumentAssertID", (IEnumerable<SelectListItem>)ViewBag.drpAssert, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.InstrumentAssertID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EnrolmentID, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownList("EnrolmentID", (IEnumerable<SelectListItem>)ViewBag.drpEnrollment, htmlAttributes: new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.EnrolmentID, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="panel-footer">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button type="button" data-action="HireAction" class="btn btn-primary btSubmit">Save</button>
+                    <button class="btn btn-default modal-dismiss">Cancel</button>
+                </div>
+            </div>
+        </footer>
+    </section>
+}

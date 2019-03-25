@@ -11,14 +11,21 @@ namespace SMMS.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Ensemble
     {
+        [Required]
         public int EnsembleID { get; set; }
+
+        [Display(Name = "Student")]
         public int StudentID { get; set; }
+
+        [Display(Name = "Ensemble Group")]
         public int EnsembleGroupID { get; set; }
     
         public virtual Student Student { get; set; }
+
         public virtual EnsembleGroup EnsembleGroup { get; set; }
     }
 }
